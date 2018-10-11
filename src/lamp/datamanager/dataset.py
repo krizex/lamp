@@ -4,17 +4,7 @@ import datetime
 import os
 from collections import namedtuple
 
-import pymongo
-
-from scv.db.db import DBManager
-
-__author__ = 'David Qian'
-
-"""
-Created on 01/23/2017
-@author: David Qian
-
-"""
+from lamp.db.db import DBManager
 
 
 class SalesData(object):
@@ -104,3 +94,12 @@ class DataSet(object):
 
 
 
+class Candidate(object):
+    def __init__(self):
+        self.records = self._get_all()
+
+    def _get_all(self):
+        return DBManager.query_db('select * from candidates')
+
+    def get_all(self):
+        return self.records

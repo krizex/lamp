@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 
-from scv import config
+from lamp import config
 
 __author__ = 'David Qian'
 

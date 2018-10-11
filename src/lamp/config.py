@@ -3,14 +3,6 @@
 import logging
 import os
 
-__author__ = 'David Qian'
-
-"""
-Created on 09/07/2016
-@author: David Qian
-
-"""
-
 
 root_node = {
     'path': os.path.join(os.path.dirname(__file__), 'running')
@@ -30,6 +22,8 @@ scanner = {
 
 logger = {
     'path': os.path.join(root_node['path'], 'logs'),
-    'file': 'scv.log',
+    'file': 'lamp.log',
     'level': logging.DEBUG,
 }
+
+database = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'database.db')

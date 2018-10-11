@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from flask import render_template
 
-from scv.app.controllers import get_sales_data
+from lamp.app.controllers import get_sorted_candidates
 
 __author__ = 'David Qian'
 
@@ -38,3 +38,7 @@ def display_sales_data():
     print sales_data
     return render_template('sales_data.html', xAxis=records_date, series=sales_data)
 
+
+def display_candidates_data():
+    recs = get_sorted_candidates()
+    return render_template('candidates_data.html', recs=recs)

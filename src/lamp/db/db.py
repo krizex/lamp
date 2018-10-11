@@ -1,29 +1,36 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import pymongo
-
-__author__ = 'David Qian'
-
-"""
-Created on 09/07/2016
-@author: David Qian
-
-"""
+import sys
+import sqlite3
+from contextlib import closing
+from lamp.config import database
 
 
 class _DBManager(object):
     def __init__(self):
-        self.client = pymongo.MongoClient("localhost", 27017)
-        self.table = self.client.scv.sales
+        self.db = sqlite3.connect(database)
 
-    def insert_record(self, rec):
-        return self.table.insert_one(rec).inserted_id
-
-    def delete_record(self, filter):
-        return self.table.delete_one(filter).deleted_count
-
-    def fetch_record(self):
-        return self.table.find()
+    def query_db(self, query, args=(), one=False):
+        cur = self.db.execute(query, args)
+        rv = [dict((cur.description[idx][0], value)
+                   for idx, value in enumerate(row)) for row in cur.fetchall()]
+        return (rv[0] if rv else None) if one else rv
 
 
 DBManager = _DBManager()
+
+def init_db():
+    from lamp.app import app
+    with closing(DBManager.db) as db:
+        with app.open_resource('schema.sql') as f:
+            db.cursor().executescript(f.read())
+        db.commit()
+
+
+if __name__ == '__main__':
+    if len(sys.argv) == 2 and sys.argv[1] == 'init':
+        init_db()
+    else:
+        print "What's your plan?"
+
+    exit(0)
