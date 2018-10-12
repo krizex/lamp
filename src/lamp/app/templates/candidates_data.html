@@ -33,35 +33,45 @@
 		<!--<div id={{ chartID|safe }} class="chart" style="height: 100px; width: 500px"></div>-->
       <!-- <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div> -->
 
-    <table data-toggle="table" class="table table-dark">
+    <table data-toggle="table" class="table">
         <thead>
         <TR>
-            <TH>CODE</TH>
-            <TH>NAME</TH>
-            <TH>START-PE</TH>
+            <TH>OWN</TH>
+            <TH>CODE/NAME</TH>
+            <TH>START/STOP PE</TH>
+            <TH>VOLATILITY-RANGE</TH>
             <TH>START-PRICE</TH>
             <TH>CUR-PRICE</TH>
+            <TH>BENEFIT</TH>
             <TH>START-DISTANCE</TH>
-            <TH>STOP-PE</TH>
-            <TH>STOP-PRICE</TH>
-            <TH>VOLATILITY</TH>
-            <TH>STOP-LOSS-PRICE</TH>
+            <TH>STOP-PRICE UP/DOWN</TH>
             <TH>NOTE</TH>
         </TR>
         </thead>
         <tbody>
         {% for r in recs %}
-        <TR>
-            <TD>{{r.code}}</TD>
-            <TD>{{r.name}}</TD>
-            <TD>{{r.start_pe}}</TD>
+        <TR {{r.color_class}}>
+            <TD> {% if r.own %} Y {% endif %}</TD>
+            <TD>{{r.code}} {{r.name}}</TD>
+            <TD>{{r.start_pe}} / {{r.stop_pe}}</TD>
+            <TD>{{r.volatility_range}}</TD>
             <TD>{{r.start_price}}</TD>
             <TD>{{r.cur_price}}</TD>
-            <TD>{{r.enter_distance}}</TD>
-            <TD>{{r.stop_pe}}</TD>
-            <TD>{{r.stop_price}}</TD>
-            <TD>{{r.volatility}}</TD>
-            <TD>{{r.stop_loss_price}}</TD>
+            <TD>
+                {% if r.own %}
+                    {{'%.2f%%' % (r.cur_benefit * 100)}}
+                {% else %}
+                    -
+                {% endif %}
+            </TD>
+            <TD>
+                {% if r.own %}
+                    -
+                {% else %}
+                    {{'%.2f%%' % (r.enter_distance * 100)}}
+                {% endif %}
+            </TD>
+            <TD>{{'%.2f' % r.stop_price}} / {{'%.2f' % r.stop_loss_price}} </TD>
             <TD>{{r.note}}</TD>
         </TR>
         {% endfor %}
