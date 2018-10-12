@@ -1,5 +1,5 @@
 CREATE TABLE candidates (
-    code INTEGER PRIMARY KEY,
+    code CHARACTER(10) PRIMARY KEY,
     start_pe DOUBLE,
     start_price DOUBLE,
     stop_pe DOUBLE,
