@@ -2,9 +2,14 @@
 # -*- coding: utf-8 -*-
 import sys
 import sqlite3
+from lamp.app import app
+from flask_sqlalchemy import SQLAlchemy
+
 from contextlib import closing
 from lamp.config import database
 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////%s' % database
+db = SQLAlchemy(app)
 
 class _DBManager(object):
     def __init__(self):
@@ -34,3 +39,13 @@ if __name__ == '__main__':
         print "What's your plan?"
 
     exit(0)
+
+
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+
+    def __repr__(self):
+        return '<User %r>' % self.username
