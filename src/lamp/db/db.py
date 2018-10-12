@@ -8,7 +8,7 @@ from lamp.config import database
 
 class _DBManager(object):
     def __init__(self):
-        self.db = sqlite3.connect(database)
+        self.db = sqlite3.connect(database, check_same_thread=False)
 
     def query_db(self, query, args=(), one=False):
         cur = self.db.execute(query, args)
