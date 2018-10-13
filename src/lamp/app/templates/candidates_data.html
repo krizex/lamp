@@ -43,7 +43,7 @@
             <TH>START-PRICE</TH>
             <TH>CUR-PRICE</TH>
             <TH>BENEFIT</TH>
-            <TH>START-DISTANCE</TH>
+            <TH>START-AFTER</TH>
             <TH>STOP-PRICE UP/DOWN</TH>
             <TH>NOTE</TH>
         </TR>
@@ -52,7 +52,11 @@
         {% for r in recs %}
         <TR {{r.color_class}}>
             <TD> {% if r.own %} Y {% endif %}</TD>
-            <TD>{{r.code}} {{r.name}}</TD>
+            <TD>
+                <a href="https://xueqiu.com/k?q={{r.code}}#/stock">
+                    {{r.code}} {{r.name}}
+                </a>
+            </TD>
             <TD>{{r.start_pe}} / {{r.stop_pe}}</TD>
             <TD>{{r.volatility_range}}</TD>
             <TD>{{r.start_price}}</TD>
