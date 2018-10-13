@@ -16,9 +16,15 @@ class Unit(object):
         self.fill_info()
 
     def fill_info(self):
-        stock = Stock(self.code)
-        self.name = stock.name
-        self.cur_price = stock.get_last_day_close()
+        # TODO: optimize
+        self.name = 'UNKNOWN'
+        self.cur_price = 0.1
+        try:
+            stock = Stock(self.code)
+            self.name = stock.name
+            self.cur_price = stock.get_last_day_close()
+        except:
+            pass
 
     @property
     def stop_price(self):
