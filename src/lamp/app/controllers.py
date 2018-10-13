@@ -72,9 +72,9 @@ class Unit(object):
         # now self and other .own equals
         elif self.own == 1:
             # TODO reconsider the order
-            return self.quite_distance - other.quite_distance
+            return cmp(self.quite_distance, other.quite_distance)
         elif self.own == 0:
-            return self.enter_distance - other.enter_distance
+            return cmp(self.enter_distance, other.enter_distance)
 
     def _calc_color(self):
         if self.own:
@@ -106,8 +106,16 @@ class Unit(object):
 def get_sorted_candidates():
     records = Candidate().get_all()
     records = [Unit(rec) for rec in records]
-    records.sort()
-    # records = sorted(records, cmp=Unit.__cmp__)
+    def cmp(x, y):
+        if x == y:
+            return 0
+        elif x < y:
+            return -1
+        else:
+            return 1
+
+
+    records = sorted(records, cmp=cmp)
 
     return records
 
