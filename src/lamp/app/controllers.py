@@ -64,6 +64,7 @@ class Unit(object):
     def cur_benefit(self):
         return (self.cur_price - self.start_price) / self.start_price
 
+    @staticmethod
     def __cmp__(self, other):
         if self.own > other.own:
             return -1
@@ -71,6 +72,7 @@ class Unit(object):
             return 1
         # now self and other .own equals
         elif self.own == 1:
+            # TODO reconsider the order
             return self.quite_distance - other.quite_distance
         elif self.own == 0:
             return self.enter_distance - other.enter_distance
@@ -105,7 +107,7 @@ class Unit(object):
 def get_sorted_candidates():
     records = Candidate().get_all()
     records = [Unit(rec) for rec in records]
-    records = sorted(records)
+    records = sorted(records, cmp=Unit.__cmp__)
 
     return records
 
