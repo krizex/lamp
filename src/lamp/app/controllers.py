@@ -51,12 +51,12 @@ class Unit(object):
         if self.cur_price >= self.start_price:
             return (self.stop_price - self.cur_price) / self.cur_price
         else:
-            return (self.cur_price - self.stop_loss_price) / self.cur_price
+            return -(self.cur_price - self.stop_loss_price) / self.cur_price
 
     @property
     def enter_distance(self):
         if self.cur_price >= self.start_price:
-            return (self.cur_price - self.start_price) / self.cur_price
+            return -(self.cur_price - self.start_price) / self.cur_price
         else:
             return (self.start_price - self.cur_price) / self.cur_price
 
@@ -72,9 +72,9 @@ class Unit(object):
         # now self and other .own equals
         elif self.own == 1:
             # TODO reconsider the order
-            return cmp(self.quite_distance, other.quite_distance)
+            return cmp(abs(self.quite_distance), abs(other.quite_distance))
         elif self.own == 0:
-            return cmp(self.enter_distance, other.enter_distance)
+            return cmp(abs(self.enter_distance), abs(other.enter_distance))
 
     def _calc_color(self):
         if self.own:
