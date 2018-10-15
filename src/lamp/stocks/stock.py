@@ -11,15 +11,20 @@ class Stock(object):
     def get_k_data(self):
         return ts.get_k_data(self.code, retry_count=10)
 
-    def get_last_day_info(self):
-        today = self.df.shape[0] - 1
-        return self.df.iloc[today]
+    def get_last_n_day_info(self, n):
+        day = self.df.shape[0] - 1 - n
+        return self.df.iloc[day]
+
+    def get_last_day_p_change(self):
+        today = self.get_last_n_day_info(0)
+        yesterday = self.get_last_n_day_info(1)
+        return today['close'] / yesterday['close'] - 1.0
 
     def get_last_day_close(self):
-        return self.get_last_day_info()['close']
+        return self.get_last_n_day_info(0)['close']
 
     def get_last_day_date(self):
-        return self.get_last_day_info()['date']
+        return self.get_last_n_day_info(0)['date']
 
 
 class __StockMgr(object):

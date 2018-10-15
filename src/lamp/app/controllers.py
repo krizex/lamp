@@ -3,6 +3,7 @@
 
 from lamp.datamanager.dataset import Candidate
 from lamp.stocks.stock import Stock
+import traceback
 
 
 class Unit(object):
@@ -20,13 +21,15 @@ class Unit(object):
         self.name = 'UNKNOWN'
         self.cur_price = 0.1
         self.cur_date = 'UNKNOWN'
+        self.cur_p_change = 0.0
         try:
             stock = Stock(self.code)
             self.name = stock.name
             self.cur_price = stock.get_last_day_close()
             self.cur_date = stock.get_last_day_date()
-        except:
-            pass
+            self.cur_p_change = stock.get_last_day_p_change()
+        except Exception as e:
+            traceback.print_exc()
 
     @property
     def stop_price(self):
