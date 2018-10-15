@@ -19,10 +19,12 @@ class Unit(object):
         # TODO: optimize
         self.name = 'UNKNOWN'
         self.cur_price = 0.1
+        self.cur_date = 'UNKNOWN'
         try:
             stock = Stock(self.code)
             self.name = stock.name
             self.cur_price = stock.get_last_day_close()
+            self.cur_date = stock.get_last_day_date()
         except:
             pass
 

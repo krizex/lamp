@@ -18,6 +18,9 @@ class Stock(object):
     def get_last_day_close(self):
         return self.get_last_day_info()['close']
 
+    def get_last_day_date(self):
+        return self.get_last_day_info()['date']
+
 
 class __StockMgr(object):
     def __init__(self):

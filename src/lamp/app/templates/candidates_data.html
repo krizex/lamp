@@ -60,7 +60,7 @@
             <TD>{{r.start_pe}} / {{r.stop_pe}}</TD>
             <TD>{{r.volatility_range}}</TD>
             <TD>{{r.start_price}}</TD>
-            <TD>{{r.cur_price}}</TD>
+            <TD>{{r.cur_price}}  ({{r.cur_date}})</TD>
             <TD>
                 {% if r.own %}
                     {{'%.2f%%' % (r.cur_benefit * 100)}}
