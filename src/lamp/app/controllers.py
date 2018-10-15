@@ -91,7 +91,7 @@ class Unit(object):
                 else:
                     return 'danger'
         else:
-            if self.enter_distance <= 0.05:
+            if abs(self.enter_distance) <= 0.05:
                 return 'active'
             else:
                 return 'light'
