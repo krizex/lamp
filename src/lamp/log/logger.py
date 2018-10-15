@@ -4,21 +4,12 @@ import logging
 import os
 from logging.handlers import RotatingFileHandler
 
-from scv import config
-
-__author__ = 'David Qian'
-
-"""
-Created on 09/07/2016
-@author: David Qian
-
-"""
 
 
 class Logger(object):
     def __init__(self):
         logging.getLogger().setLevel(config.logger['level'])
-        self.logger = logging.getLogger('scv')
+        self.logger = logging.getLogger('lamp')
         self.logger.setLevel(config.logger['level'])
         log_file_dir = config.logger['path']
         if not os.path.exists(log_file_dir):
