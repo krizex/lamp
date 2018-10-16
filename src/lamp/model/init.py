@@ -1,4 +1,4 @@
-from lamp.model import db
+from lamp.app import db
 from lamp.model.candidate import Candidate
 
 
