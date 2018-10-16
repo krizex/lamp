@@ -1,5 +1,3 @@
 #!/bin/bash
-export PYTHONPATH=`pwd`
-export FLASK_APP=lamp.app
-export FLASK_DEBUG=1
-flask run -h 0.0.0.0 -p 8000
+
+exec gunicorn -p app.pid -w 1 -b 0.0.0.0:8000 lamp.app.run:app &

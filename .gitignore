@@ -112,3 +112,4 @@ dmypy.json
 
 # my
 src/lamp/data/database.db
+src/app.pid
