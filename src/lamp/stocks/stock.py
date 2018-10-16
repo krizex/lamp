@@ -29,9 +29,16 @@ class Stock(object):
 
 class __StockMgr(object):
     def __init__(self):
-        self.df = ts.get_stock_basics()
+        self.inited = False
+        self.df = None
+
+    def _init(self):
+        if not self.inited:
+            self.df = ts.get_stock_basics()
+            self.inited = True
 
     def get_stock_info(self, code):
+        self._init()
         return self.df.ix[code]
 
     def get_stock_name(self, code):
