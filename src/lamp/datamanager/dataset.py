@@ -6,7 +6,7 @@ import os
 from lamp.db.db import DBManager
 
 
-class Candidate(object):
+class Candidate_depr(object):
     def __init__(self):
         self.records = self._get_all()
 

@@ -1,19 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from lamp.datamanager.dataset import Candidate
+from lamp.model.candidate import Candidate
 from lamp.stocks.stock import Stock
 import traceback
 
 
 class Unit(object):
-    def __init__(self, rec):
-        self.code = rec['code']
-        self.start_pe = rec['start_pe']
-        self.start_price = rec['start_price']
-        self.stop_pe = rec['stop_pe']
-        self.own = rec['own']
-        self.note = rec['note']
+    def __init__(self, candidate):
+        self.code = candidate.code
+        self.start_pe = candidate.start_pe
+        self.stop_pe = candidate.stop_pe
+        self.start_price = candidate.start_price
+        self.own = candidate.own
+        self.note = candidate.note
         self.fill_info()
 
     def fill_info(self):
@@ -109,18 +109,10 @@ class Unit(object):
 
 
 def get_sorted_candidates():
-    records = Candidate().get_all()
+    records = Candidate.query.all()
     records = [Unit(rec) for rec in records]
-    def cmp(x, y):
-        if x == y:
-            return 0
-        elif x < y:
-            return -1
-        else:
-            return 1
 
-
-    records = sorted(records, cmp=cmp)
+    records = sorted(records)
 
     return records
 
