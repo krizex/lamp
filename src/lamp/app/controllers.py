@@ -49,7 +49,7 @@ class Unit(object):
 
     @property
     def volatility_range(self):
-        return '+%.2f%% ~ -%.2f%%' % (self.volatility_up * 100, self.volatility_down * 100)
+        return '+%.2f%%' % (self.volatility_up * 100), '-%.2f%%' % (self.volatility_down * 100)
 
     @property
     def quite_distance(self):

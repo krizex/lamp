@@ -54,13 +54,13 @@
             <TD> {% if r.own %} Y {% endif %}</TD>
             <TD>
                 <a href="https://xueqiu.com/k?q={{r.code}}#/stock">
-                    {{r.code}} {{r.name}}
+                    {{r.code}} <BR> {{r.name}}
                 </a>
             </TD>
-            <TD>{{r.start_pe}} / {{r.stop_pe}}</TD>
-            <TD>{{r.volatility_range}}</TD>
+            <TD>{{r.start_pe}} <BR> {{r.stop_pe}}</TD>
+            <TD>{{r.volatility_range.0}} <BR> {{r.volatility_range.1}}</TD>
             <TD>{{r.start_price}}</TD>
-            <TD>{{r.cur_price}}  ({{'%.2f%%' % (r.cur_p_change * 100)}})</TD>
+            <TD>{{r.cur_price}} <BR> ({{'%.2f%%' % (r.cur_p_change * 100)}})</TD>
             <TD>
                 {% if r.own %}
                     {{'%.2f%%' % (r.cur_benefit * 100)}}
@@ -75,7 +75,7 @@
                     {{'%.2f%%' % (r.enter_distance * 100)}}
                 {% endif %}
             </TD>
-            <TD>{{'%.2f' % r.stop_price}} / {{'%.2f' % r.stop_loss_price}} </TD>
+            <TD>{{'%.2f' % r.stop_price}} <BR> {{'%.2f' % r.stop_loss_price}} </TD>
             <TD>{{r.note}}</TD>
         </TR>
         {% endfor %}
