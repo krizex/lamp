@@ -52,6 +52,15 @@ class Unit(object):
         return '+%.2f%%' % (self.volatility_up * 100), '-%.2f%%' % (self.volatility_down * 100)
 
     @property
+    def progress(self):
+        if self.cur_price >= self.start_price:
+            hover = self.stop_price
+        else:
+            hover = self.stop_loss_price
+
+        return (self.cur_price - self.start_price) / (hover - self.start_price)
+
+    @property
     def quite_distance(self):
         """ hover around the target price, if not exit when beyonds the price, will return a negative value to make the order higher
         """

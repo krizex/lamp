@@ -61,9 +61,10 @@
             <TD>{{r.volatility_range.0}} <BR> {{r.volatility_range.1}}</TD>
             <TD>{{r.start_price}}</TD>
             <TD>{{r.cur_price}} <BR> ({{'%.2f%%' % (r.cur_p_change * 100)}})</TD>
+            <!-- benefit -->
             <TD>
                 {% if r.own %}
-                    {{'%.2f%%' % (r.cur_benefit * 100)}}
+                    {{'%.2f%%' % (r.cur_benefit * 100) }} <BR> ({{'%.2f%%' % (r.progress * 100)}})
                 {% else %}
                     -
                 {% endif %}
