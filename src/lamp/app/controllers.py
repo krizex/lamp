@@ -3,6 +3,7 @@
 
 from lamp.model.candidate import Candidate
 from lamp.stocks.stock import Stock
+from lamp.log import log
 import traceback
 
 
@@ -29,7 +30,7 @@ class Unit(object):
             self.cur_date = stock.get_last_day_date()
             self.cur_p_change = stock.get_last_day_p_change()
         except Exception as e:
-            traceback.print_exc()
+            log.exception('Cannot get info for %s' % self.code)
 
     @property
     def stop_price(self):

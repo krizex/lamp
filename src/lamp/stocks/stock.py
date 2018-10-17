@@ -1,5 +1,6 @@
 import tushare as ts
 from lamp.utils.util import ndays_before_today
+from lamp.log import log
 
 
 class Stock(object):
@@ -40,9 +41,12 @@ class __StockMgr(object):
     def _init_basics(self):
         for _ in range(10):
             try:
-                return ts.get_stock_basics()
+                log.info('Fetching stock basics...')
+                ret = ts.get_stock_basics()
+                log.info('Fetched')
+                return ret
             except:
-                print 'Try again'
+                log.exception('Failed to get stock basics')
 
     def get_stock_info(self, code):
         self._init()

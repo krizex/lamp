@@ -3,6 +3,7 @@
 import logging
 import os
 from logging.handlers import RotatingFileHandler
+from lamp import config
 
 
 
@@ -28,4 +29,3 @@ class Logger(object):
         self.logger.addHandler(term_handler)
 
 
-log = Logger().logger
