@@ -24,6 +24,8 @@ logger = {
     'path': os.path.join(root_node['path'], 'logs'),
     'file': 'lamp.log',
     'level': logging.DEBUG,
+    'maxBytes': 1024 * 1024 * 20,
+    'backupCount': 5,
 }
 
 database = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'database.db')
