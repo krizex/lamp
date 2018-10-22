@@ -1,5 +1,4 @@
-from lamp.app import db
-from lamp.model.candidate import Candidate
+from lamp.model import db
 
 
 if __name__ == '__main__':

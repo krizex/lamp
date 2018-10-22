@@ -1,4 +1,4 @@
-from lamp.app import db
+from lamp.model import db
 
 class Candidate(db.Model):
     code = db.Column(db.String(10), unique=True, nullable=False, primary_key=True)

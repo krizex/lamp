@@ -2,13 +2,8 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template
 from lamp import config
-from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///%s' % config.database
-db = SQLAlchemy(app)
-
 
 from lamp.app.views import display_candidates_data
 

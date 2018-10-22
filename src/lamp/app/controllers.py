@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from lamp.model.candidate import Candidate
+from lamp.model import Candidate
 from lamp.stocks.stock import Stock
 from lamp.log import log
 import traceback
