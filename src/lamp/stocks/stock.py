@@ -7,10 +7,17 @@ class Stock(object):
     def __init__(self, code):
         self.code = code
         self.df = self.get_k_data()
-        self.name = StockMgr.get_stock_name(self.code)
+        try:
+            self.name = StockMgr.get_stock_name(self.code)
+        except:
+            self.name = 'UNKNOWN'
 
     def get_k_data(self):
-        return ts.get_k_data(self.code, retry_count=10)
+        try:
+            return ts.get_k_data(self.code, retry_count=10)
+        except:
+            cons = ts.get_apis()
+            return ts.bar(self.code, conn=cons, retry_count=10)
 
     def get_last_n_day_info(self, n):
         day = self.df.shape[0] - 1 - n
