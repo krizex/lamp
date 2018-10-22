@@ -114,3 +114,4 @@ dmypy.json
 src/lamp/data/database.db
 src/app.pid
 nohup.out
+running/logs/*
