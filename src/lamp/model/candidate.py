@@ -18,3 +18,10 @@ class Candidate(db.Model):
 
     def __repr__(self):
         return '<Code %r>' % self.code
+
+    def update(self, d):
+        self.start_pe = d['start_pe']
+        self.stop_pe = d['stop_pe']
+        self.start_price = d['start_price']
+        self.own = d['own']
+        self.note = d['note']
