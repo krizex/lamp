@@ -6,11 +6,11 @@
 {"code":"600276", "start_pe":76, "stop_pe":82.33, "start_price":73.32, "own":0, "note":""},
 {"code":"601888", "start_pe":44.3, "stop_pe":49.56, "start_price":67.44, "own":0, "note":""},
 {"code":"601601", "start_pe":17, "stop_pe":19, "start_price":30.78, "own":0, "note":""},
-{"code":"600585", "start_pe":9.45, "stop_pe":10.23, "start_price":32.95, "own":0, "note":""},
+{"code":"600585", "start_pe":9.45, "stop_pe":10.23, "start_price":32.95, "own":1, "note":""},
 {"code":"000977", "start_pe":70, "stop_pe":80, "start_price":22.33, "own":1, "note":""},
 {"code":"000963", "start_pe":33, "stop_pe":42.05, "start_price":43.81, "own":1, "note":""},
 {"code":"600011", "start_pe":51, "stop_pe":58.83, "start_price":7.91, "own":0, "note":""},
 {"code":"600036", "start_pe":8.65, "stop_pe":11, "start_price":25, "own":0, "note":""},
 {"code":"601318", "start_pe":10, "stop_pe":12.9, "start_price":56.73, "own":0, "note":""},
-{"code":"600519", "start_pe":25, "stop_pe":29, "start_price":627.43, "own":0, "note":""}
+{"code":"600519", "start_pe":25, "stop_pe":29, "start_price":627.43, "own":1, "note":""}
 ]
