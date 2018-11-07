@@ -76,7 +76,7 @@
                     {{'%+.2f%%' % (r.enter_distance * 100)}}
                 {% endif %}
             </TD>
-            <TD>{{'%+.2f' % r.stop_price}} <BR> {{'%+.2f' % r.stop_loss_price}} </TD>
+            <TD>{{'%.2f' % r.stop_price}} <BR> {{'%.2f' % r.stop_loss_price}} </TD>
             <TD>{{r.note}}</TD>
         </TR>
         {% endfor %}
