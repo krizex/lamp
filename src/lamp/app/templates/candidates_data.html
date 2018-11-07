@@ -64,7 +64,19 @@
             <!-- benefit -->
             <TD>
                 {% if r.own %}
-                    {{'%+.2f%%' % (r.cur_benefit * 100) }} <BR> ({{'%+.2f%%' % (r.progress * 100)}})
+                {{'%+.2f%%' % (r.cur_benefit * 100) }}
+                {% for _ in range(r.progress | int) %}
+                <div class="progress">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <BR>
+                {% else %}
+                <BR>
+                {% endfor %}
+
+                <div class="progress">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: {{(r.progress - (r.progress | int)) * 100}}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
                 {% else %}
                     -
                 {% endif %}
