@@ -11,7 +11,7 @@ print_help ()
 start ()
 {
     echo "starting server"
-    exec gunicorn -p app.pid -w 1 -b 0.0.0.0:8000 lamp.app.run:app &
+    exec gunicorn -p app.pid -w 1 -b 0.0.0.0:8000 --timeout 60 lamp.app.run:app &
 }
 
 stop ()
