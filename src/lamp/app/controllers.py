@@ -19,16 +19,16 @@ class Unit(object):
 
     def fill_info(self):
         # TODO: optimize
+        self.stock = Stock(self.code)
         self.name = 'UNKNOWN'
         self.cur_price = 0.1
         self.cur_date = 'UNKNOWN'
         self.cur_p_change = 0.0
         try:
-            stock = Stock(self.code)
-            self.name = stock.name
-            self.cur_price = stock.get_last_day_close()
-            self.cur_date = stock.get_last_day_date()
-            self.cur_p_change = stock.get_last_day_p_change()
+            self.name = self.stock.name
+            self.cur_price = self.stock.get_last_day_close()
+            self.cur_date = self.stock.get_last_day_date()
+            self.cur_p_change = self.stock.get_last_day_p_change()
         except Exception as e:
             log.exception('Cannot get info for %s' % self.code)
 
@@ -117,6 +117,20 @@ class Unit(object):
     def color_class(self):
         color = self._calc_color()
         return 'class=table-%s' % color
+
+    @property
+    def trend_position(self):
+        low = self.trend_stop
+        high = self.trend_start
+        return (self.cur_price - low) / (high - low)
+
+    @property
+    def trend_start(self):
+        return self.stock.get_highest_in_n_days(22)
+
+    @property
+    def trend_stop(self):
+        return self.stock.get_lowest_in_n_days(11)
 
 
 

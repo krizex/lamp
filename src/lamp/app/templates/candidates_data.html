@@ -45,6 +45,7 @@
             <TH>BENEFIT</TH>
             <TH>START-AFTER</TH>
             <TH>STOP-PRICE UP/DOWN</TH>
+            <TH>TREND</TH>
             <TH>NOTE</TH>
         </TR>
         </thead>
@@ -89,6 +90,13 @@
                 {% endif %}
             </TD>
             <TD>{{'%.2f' % r.stop_price}} <BR> {{'%.2f' % r.stop_loss_price}} </TD>
+            <TD>
+                {{r.trend_stop}} / {{r.trend_start}}
+                <BR>
+                <div class="progress">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: {{r.trend_position * 100}}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+
+            </TD>
             <TD>{{r.note}}</TD>
         </TR>
         {% endfor %}
