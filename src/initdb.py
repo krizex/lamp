@@ -1,3 +1,4 @@
+from lamp import app
 from lamp.model import db
 
 
