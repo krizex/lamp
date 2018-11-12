@@ -119,10 +119,19 @@ class Unit(object):
         return 'class=table-%s' % color
 
     @property
-    def trend_position(self):
+    def trend_info(self):
         low = self.trend_stop
         high = self.trend_start
-        return (self.cur_price - low) / (high - low)
+        l = (high - low) / 2.0
+        cur = self.cur_price - low
+        if cur >= l:
+            color = 'bg-success'
+            pos = (cur - l) / l
+        else:
+            color = 'bg-danger'
+            pos = (l - cur) / l
+
+        return color, pos
 
     @property
     def trend_start(self):

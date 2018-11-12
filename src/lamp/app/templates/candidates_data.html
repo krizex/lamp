@@ -94,7 +94,7 @@
                 {{r.trend_stop}} / {{r.trend_start}}
                 <BR>
                 <div class="progress">
-                    <div class="progress-bar bg-info" role="progressbar" style="width: {{r.trend_position * 100}}%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar {{r.trend_info.0}}" role="progressbar" style="width: {{r.trend_info.1 * 100}}%" aria-valuenow="{{r.trend_info.1 * 100}}" aria-valuemin="0" aria-valuemax="100"></div>
 
             </TD>
             <TD>{{r.note}}</TD>
