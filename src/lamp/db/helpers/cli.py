@@ -35,9 +35,12 @@ def update_candidates_from_file(f):
     # add & update
     for code, r in d.iteritems():
         c = find_candidate(code)
+        if 'name' not in r:
+            r['name'] = ''
+
         if c is None:
             # add
-            c = Candidate(r['code'], r['start_pe'], r['stop_pe'], r['start_price'], r['own'], r['note'])
+            c = Candidate(r['code'], r['name'], r['start_pe'], r['stop_pe'], r['start_price'], r['own'], r['note'])
             db.session.add(c)
         else:
             # update

@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from lamp import app
 from lamp.model import db
 

@@ -10,6 +10,7 @@ import traceback
 class Unit(object):
     def __init__(self, candidate):
         self.code = candidate.code
+        self.name = candidate.name
         self.start_pe = candidate.start_pe
         self.stop_pe = candidate.stop_pe
         self.start_price = candidate.start_price
@@ -18,16 +19,13 @@ class Unit(object):
         self.fill_info()
 
     def fill_info(self):
-        # TODO: optimize
         self.stock = Stock(self.code)
-        self.name = 'UNKNOWN'
-        self.cur_price = 0.1
-        self.cur_date = 'UNKNOWN'
-        self.cur_p_change = 0.0
+        # self.cur_price = 0.1
+        # self.cur_p_change = 0.0
         try:
-            self.name = self.stock.name
+            if not self.name:
+                self.name = self.stock.name
             self.cur_price = self.stock.get_last_day_close()
-            self.cur_date = self.stock.get_last_day_date()
             self.cur_p_change = self.stock.get_last_day_p_change()
         except Exception as e:
             log.exception('Cannot get info for %s' % self.code)
