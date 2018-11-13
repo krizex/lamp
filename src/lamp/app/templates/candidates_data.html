@@ -61,7 +61,13 @@
             <TD>{{r.start_pe}} <BR> {{r.stop_pe}}</TD>
             <TD>{{r.volatility_range.0}} <BR> {{r.volatility_range.1}}</TD>
             <TD>{{r.start_price}}</TD>
-            <TD>{{r.cur_price}} <BR> ({{'%+.2f%%' % (r.cur_p_change * 100)}})</TD>
+            <TD>
+                {{r.cur_price}}
+                <BR>
+                <p class={% if r.cur_p_change >= 0.0 %} "text-success" {% else %} "text-danger" {% endif %}>
+                    {{'%+.2f%%' % (r.cur_p_change * 100)}}
+                </p>
+                </TD>
             <!-- benefit -->
             <TD>
                 {% if r.own %}

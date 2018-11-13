@@ -19,6 +19,7 @@ class Unit(object):
         self.fill_info()
 
     def fill_info(self):
+        log.debug('Fetching %s', self.code)
         self.stock = Stock(self.code)
         # self.cur_price = 0.1
         # self.cur_p_change = 0.0
