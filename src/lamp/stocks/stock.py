@@ -49,7 +49,6 @@ class __StockMgr(object):
     def _init(self):
         if not self.inited:
             self.df = self._init_basics()
-            self.inited = True
 
     def _init_basics(self):
         for _ in range(10):
@@ -57,6 +56,7 @@ class __StockMgr(object):
                 log.info('Fetching stock basics...')
                 ret = ts.get_stock_basics()
                 log.info('Fetched')
+                self.inited = True
                 return ret
             except:
                 log.exception('Failed to get stock basics')
