@@ -51,6 +51,9 @@ class __StockMgr(object):
             self.df = self._init_basics()
 
     def _init_basics(self):
+        if self.skip:
+            return self.df
+
         for _ in range(1):
             try:
                 log.info('Fetching stock basics...')
@@ -61,6 +64,7 @@ class __StockMgr(object):
             except:
                 log.exception('Failed to get stock basics')
 
+        self.skip = True
         return None
 
     def get_stock_info(self, code):

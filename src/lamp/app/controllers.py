@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from lamp.model import Candidate
-from lamp.stocks.stock import Stock
+from lamp.stocks.stock import Stock, StockMgr
 from lamp.log import log
 from lamp.app.candidate import CandidateUnit, WaveUnit, TrendUnit
 
@@ -17,6 +17,7 @@ def unit_dispatcher(rec):
 
 
 def get_sorted_candidates():
+    StockMgr.skip = False
     records = Candidate.query.all()
     records = [unit_dispatcher(rec) for rec in records]
 
