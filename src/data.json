@@ -9,7 +9,7 @@
 {"code":"600585", "start_pe":9.45, "stop_pe":10.23, "start_price":32.95, "own":1, "note":""},
 {"code":"000977", "start_pe":70, "stop_pe":80, "start_price":22.33, "own":1, "note":""},
 {"code":"000963", "start_pe":33, "stop_pe":42.05, "start_price":43.81, "own":1, "note":""},
-{"code":"600011", "start_pe":51, "stop_pe":58.83, "start_price":7.91, "own":1, "note":"trend"},
+{"code":"600011", "start_pe":51, "stop_pe":58.83, "start_price":6.94, "own":2, "note":""},
 {"code":"600036", "start_pe":8.80, "stop_pe":11, "start_price":27.5, "own":0, "note":"PB"},
 {"code":"601318", "start_pe":10.73, "stop_pe":12.9, "start_price":60, "own":0, "note":""},
 {"code":"300498", "start_pe":20, "stop_pe":26, "start_price":21.16, "own":0, "note":""},

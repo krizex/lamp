@@ -52,15 +52,21 @@
         <tbody>
         {% for r in recs %}
         <TR {{r.color_class}}>
-            <TD> {% if r.own %} Y {% endif %}</TD>
+            <!-- OWN -->
+            <TD> {{r.own_type}} </TD>
+            <!-- CODE -->
             <TD>
                 <a href="https://xueqiu.com/k?q={{r.code}}#/stock">
                     {{r.code}} <BR> {{r.name}}
                 </a>
             </TD>
-            <TD>{{r.start_pe}} <BR> {{r.stop_pe}}</TD>
+            <!-- START PE -->
+            <TD>{{r.start_pe_str}} <BR> {{r.stop_pe_str}}</TD>
+            <!-- volatility range -->
             <TD>{{r.volatility_range.0}} <BR> {{r.volatility_range.1}}</TD>
+            <!-- start price -->
             <TD>{{r.start_price}}</TD>
+            <!-- cur price -->
             <TD>
                 {{r.cur_price}}
                 <BR>
@@ -88,14 +94,13 @@
                     -
                 {% endif %}
             </TD>
+            <!-- start after -->
             <TD>
-                {% if r.own %}
-                    -
-                {% else %}
-                    {{'%+.2f%%' % (r.enter_distance * 100)}}
-                {% endif %}
+                {{r.start_after}}
             </TD>
-            <TD>{{'%.2f' % r.stop_price}} <BR> {{'%.2f' % r.stop_loss_price}} </TD>
+            <!-- stop price -->
+            <TD>{{r.stop_price_str}} <BR> {{r.stop_loss_price_str}} </TD>
+            <!-- trend -->
             <TD>
                 {{r.trend_stop}} / {{r.trend_start}}
                 <BR>
@@ -103,6 +108,7 @@
                     <div class="progress-bar {{r.trend_info.0}}" role="progressbar" style="width: {{r.trend_info.1 * 100}}%" aria-valuenow="{{r.trend_info.1 * 100}}" aria-valuemin="0" aria-valuemax="100"></div>
 
             </TD>
+            <!-- note -->
             <TD>{{r.note}}</TD>
         </TR>
         {% endfor %}
