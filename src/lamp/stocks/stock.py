@@ -9,7 +9,8 @@ class Stock(object):
         self.df = self.get_k_data()
         try:
             self.name = StockMgr.get_stock_name(self.code)
-        except:
+        except Exception as e:
+            # log.exception('Error when get stock name')
             self.name = 'UNKNOWN'
 
     def get_k_data(self):
@@ -57,7 +58,9 @@ class __StockMgr(object):
         for _ in range(1):
             try:
                 log.info('Fetching stock basics...')
-                ret = ts.get_stock_basics()
+                pro = ts.pro_api('4105aca09e41fde2adac11ff8cdf7e05cef205d946e06935562e0010')
+                ret = pro.stock_basic(exchange='', list_status='L', fields='ts_code,symbol,name,area,industry,list_date')
+                # ret = ts.get_stock_basics()
                 log.info('Fetched')
                 self.inited = True
                 return ret
@@ -67,12 +70,21 @@ class __StockMgr(object):
         self.skip = True
         return None
 
+    def full_code(self, code):
+        if code.startswith('60'):
+            return code + '.SH'
+        else:
+            return code + '.SZ'
+
     def get_stock_info(self, code):
         self._init()
-        return self.df.ix[code]
+
+        code = self.full_code(code)
+
+        return self.df.loc[self.df['ts_code'] == code].iloc[0]
 
     def get_stock_name(self, code):
-        return self.get_stock_info(code)['name'].decode('utf-8')
+        return self.get_stock_info(code)['name']
 
 
 StockMgr = __StockMgr()
