@@ -51,7 +51,7 @@ class __StockMgr(object):
             self.df = self._init_basics()
 
     def _init_basics(self):
-        for _ in range(3):
+        for _ in range(1):
             try:
                 log.info('Fetching stock basics...')
                 ret = ts.get_stock_basics()
@@ -60,6 +60,8 @@ class __StockMgr(object):
                 return ret
             except:
                 log.exception('Failed to get stock basics')
+
+        return None
 
     def get_stock_info(self, code):
         self._init()
