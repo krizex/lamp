@@ -1,4 +1,5 @@
 #!/bin/bash
+. env.cfg
 
 PROG_NAME=$0
 
@@ -11,7 +12,7 @@ print_help ()
 start ()
 {
     echo "starting server"
-    exec gunicorn -p app.pid -w 1 -b 0.0.0.0:8000 --timeout 60 lamp.app.run:app &
+    exec gunicorn -p app.pid -w 1 -b $HOST:$PORT --timeout 60 lamp.app.run:app &
 }
 
 stop ()
@@ -26,7 +27,7 @@ start_debug_server ()
     export PYTHONPATH=`pwd`
     export FLASK_APP=lamp.app
     export FLASK_DEBUG=1
-    flask run -h 0.0.0.0 -p 8000
+    flask run -h $HOST -p $PORT
 }
 
 if [ $# -ne 1 ]
