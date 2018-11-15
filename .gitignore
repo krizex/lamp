@@ -115,3 +115,4 @@ src/lamp/data/database.db
 src/app.pid
 nohup.out
 running/logs/*
+src/env.cfg
