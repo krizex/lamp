@@ -111,6 +111,9 @@ class CandidateUnit(AbstractCandidate):
             return cmp(self.quite_distance, other.quite_distance)
         elif self.own == 0:
             return cmp(abs(self.enter_distance), abs(other.enter_distance))
+        else:
+            return cmp(self.cur_benefit, other.cur_benefit)
+
 
     def _calc_color(self):
         if self.own:
