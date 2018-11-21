@@ -52,25 +52,23 @@
         {% for r in recs %}
         <TR {{r.color_class}}>
             <!-- CODE -->
-            <TD>
+            <TD rowspan="2">
                 <a href="https://xueqiu.com/k?q={{r.code}}#/stock">
                     {{r.code}} <BR> {{r.name}}
                 </a>
             </TD>
             <!-- SIZE -->
-            <TD>{{r.size}}</TD>
+            <TD rowspan="2">{{r.size}}</TD>
             <!-- WIDTH -->
-            <TD>{{r.width}}</TD>
+            <TD rowspan="2">{{r.width}}</TD>
             <!-- SELL -->
-            <TD>{{r.next_sell | join('<BR>'|safe)}}</TD>
+            <TD class="table-active">{{r.next_sell.0}}</TD>
             <!-- SBUY -->
-            <TD>{{r.next_buy | join('<BR>'|safe)}}</TD>
+            <TD class="table-active">{{r.next_buy.0}}</TD>
             <!-- hold -->
-            <TD>
-              {{r.hold_count | join('<BR>'|safe)}}
-            </TD>
+            <TD class="table-active"> {{r.hold_count.0}} </TD>
             <!-- cur price -->
-            <TD>
+            <TD rowspan="2">
                 {{r.cur_price}}
                 <BR>
                 <p class={% if r.cur_p_change >= 0.0 %} "text-success" {% else %} "text-danger" {% endif %}>
@@ -78,11 +76,11 @@
                 </p>
             </TD>
             <!-- next op distance, a progress bar and B/S -->
-            <TD>
+            <TD rowspan="2">
 
             </TD>
             <!-- trend -->
-            <TD>
+            <TD rowspan="2">
                 {{r.trend_stop}} / {{r.trend_start}}
                 <BR>
                 <div class="progress">
@@ -90,7 +88,15 @@
 
             </TD>
             <!-- note -->
-            <TD>{{r.note}}</TD>
+            <TD rowspan="2">{{r.note}}</TD>
+        </TR>
+        <TR {{r.color_class}}>
+            <!-- SELL -->
+            <TD>{{r.next_sell.1}}</TD>
+            <!-- SBUY -->
+            <TD>{{r.next_buy.1}}</TD>
+            <!-- hold -->
+            <TD> {{r.hold_count.1}} </TD>
         </TR>
         {% endfor %}
         </tbody>
