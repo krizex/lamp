@@ -73,8 +73,22 @@ class GridUnit(object):
 
         return rets
 
+    def calc_next_op_distance(self):
+        rets = []
+        for hold in self.calc_hold_cnt():
+            if hold <= 0 or hold >= self.size:
+                rets.append(-1)
+            else:
+                sell = self.ruler[hold - 1]
+                buy = self.ruler[hold + 1]
+                d = 1 - (self.cur_price - buy) / 1.0 / (sell - buy)
+                log.info(d)
+                rets.append(d)
+        return rets
+
+    @property
     def next_op_distance(self):
-        pass
+        return self.calc_next_op_distance()
 
     @property
     def trend_start(self):
