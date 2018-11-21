@@ -10,12 +10,12 @@ from lamp.app.views import display_grids_data
 
 
 @app.route('/')
-@app.route('/wave')
+@app.route('/wave/')
 def index():
     return display_candidates_data()
 
 
-@app.route('/grid')
+@app.route('/grid/')
 def grid():
     return display_grids_data()
 
