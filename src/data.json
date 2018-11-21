@@ -2,6 +2,7 @@
 {"code":"600309", "start_pe":11.05, "stop_pe":21.21, "start_price":53.2, "own":0, "note":""},
 {"code":"603288", "start_pe":51.03, "stop_pe":58.19, "start_price":70.98, "own":0, "note":""},
 {"code":"162411", "name": "HBYQ", "start_pe":1, "stop_pe":1.5, "start_price":0.642, "own":1, "note":""},
+{"code":"512000", "name": "QS-ETF", "start_pe":1, "stop_pe":1.5, "start_price":0.760, "own":0, "note":""},
 {"code":"600258", "start_pe":21, "stop_pe":27, "start_price":14.58, "own":0, "note":""},
 {"code":"600276", "start_pe":76, "stop_pe":82.33, "start_price":73.32, "own":0, "note":""},
 {"code":"601888", "start_pe":44.3, "stop_pe":49.56, "start_price":67.44, "own":0, "note":""},
@@ -13,5 +14,6 @@
 {"code":"600036", "start_pe":8.80, "stop_pe":11, "start_price":27.5, "own":0, "note":"PB"},
 {"code":"601318", "start_pe":10.73, "stop_pe":12.9, "start_price":60, "own":0, "note":""},
 {"code":"300498", "start_pe":20, "stop_pe":26, "start_price":21.16, "own":0, "note":""},
+{"code":"002299", "start_pe":1, "stop_pe":1, "start_price":17.98, "own":0, "note":"trend"},
 {"code":"600519", "start_pe":25, "stop_pe":29, "start_price":627.43, "own":0, "note":""}
 ]
