@@ -83,7 +83,7 @@ def update_grids_from_file(f):
 
         if c is None:
             # add
-            c = Grid(*get_values(r, 'code', 'name', 'high', 'low', 'size', 'width', 'own', 'note'))
+            c = Grid(*get_values(r, 'code', 'name', 'high', 'low', 'size', 'unit', 'own', 'note'))
             db.session.add(c)
         else:
             # update

@@ -17,11 +17,11 @@ def calc_ruler(high, low, size):
 
     # The ruler has an additional grid, that means the first buy point is ruler[1]
     ruler = ruler[::-1]
-    return ruler
+    return ruler, rate
 
 
 if __name__ == '__main__':
-    ruler = calc_ruler(40.8, 28.3, 10)
+    ruler = calc_ruler(40.8, 28.3, 10)[0]
     print 'Ruler:'
     for i, r in enumerate(ruler):
         print '%2d:    %.3f' % (i, r)

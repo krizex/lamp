@@ -6,17 +6,17 @@ class Grid(db.Model):
     high= db.Column(db.Float, nullable=False)
     low = db.Column(db.Float, nullable=False)
     size = db.Column(db.Integer, nullable=False)
-    width = db.Column(db.Integer, nullable=False)
+    unit = db.Column(db.Integer, nullable=False)
     own = db.Column(db.Integer, nullable=False)
     note = db.Column(db.Text)
 
-    def __init__(self, code, name, high, low, size, width, own, note):
+    def __init__(self, code, name, high, low, size, unit, own, note):
         self.code = code
         self.name = name
         self.high = high
         self.low = low
         self.size = size
-        self.width = width
+        self.unit = unit
         self.own = own
         self.note = note
 
@@ -28,6 +28,6 @@ class Grid(db.Model):
         self.high = d['high']
         self.low = d['low']
         self.size = d['size']
-        self.width = d['width']
+        self.unit = d['unit']
         self.own = d['own']
         self.note = d['note']

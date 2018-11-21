@@ -75,8 +75,8 @@
         <thead>
         <TR>
             <TH>CODE/NAME</TH>
-            <TH>SIZE</TH>
-            <TH>WIDTH</TH>
+            <TH>SIZE/WIDTH</TH>
+            <TH>UNIT</TH>
             <TH>SELL</TH>
             <TH>OP-TREND</TH>
             <TH>BUY</TH>
@@ -96,9 +96,13 @@
                 </a>
             </TD>
             <!-- SIZE -->
-            <TD rowspan="2">{{r.size}}</TD>
+            <TD rowspan="2">
+                {{r.size}}
+                <BR>
+                {{'%.2f%%' % (r.width * 100)}}
+            </TD>
             <!-- WIDTH -->
-            <TD rowspan="2">{{r.width}}</TD>
+            <TD rowspan="2">{{r.unit}}</TD>
             <!-- SELL -->
             <TD class="table-active">{{r.next_sell.0}}</TD>
             <!-- next op distance -->

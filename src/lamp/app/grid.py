@@ -10,9 +10,9 @@ class GridUnit(object):
         self.code = grid.code
         self.name = grid.name
         self.size = grid.size
-        self.width = grid.width
+        self.unit = grid.unit
         self.note = grid.note
-        self.ruler = calc_ruler(grid.high, grid.low, grid.size)
+        self.ruler, self.width = calc_ruler(grid.high, grid.low, grid.size)
         self.fill_info()
 
     def fill_info(self):
@@ -55,7 +55,7 @@ class GridUnit(object):
     @property
     def hold_count(self):
         holds = self.calc_hold_cnt()
-        return ['%d' % (hold * self.width) for hold in holds]
+        return ['%d' % (hold * self.unit) for hold in holds]
 
     @property
     def next_sell(self):
