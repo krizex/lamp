@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from lamp.model import Candidate
+from lamp.model import Candidate, Grid
 from lamp.stocks.stock import Stock, StockMgr
 from lamp.log import log
 from lamp.app.candidate import CandidateUnit, WaveUnit, TrendUnit
+from lamp.app.grid import GridUnit
 
 
 def unit_dispatcher(rec):
@@ -25,3 +26,12 @@ def get_sorted_candidates():
 
     return records
 
+
+
+def get_grids():
+    StockMgr.skip = False
+    records = Grid.query.all()
+    records = [GridUnit(rec) for rec in records]
+
+
+    return records

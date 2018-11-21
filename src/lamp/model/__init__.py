@@ -7,3 +7,4 @@ db = SQLAlchemy(app)
 
 # Import models here
 from lamp.model.candidate import Candidate
+from lamp.model.grid import Grid

@@ -6,12 +6,18 @@ from lamp import config
 app = Flask(__name__)
 
 from lamp.app.views import display_candidates_data
+from lamp.app.views import display_grids_data
 
 
 @app.route('/')
 @app.route('/candidates')
 def index():
     return display_candidates_data()
+
+
+@app.route('/grid')
+def grid():
+    return display_grids_data()
 
 
 if __name__ == "__main__":
