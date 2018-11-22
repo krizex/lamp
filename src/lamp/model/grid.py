@@ -10,24 +10,6 @@ class Grid(db.Model):
     own = db.Column(db.Integer, nullable=False)
     note = db.Column(db.Text)
 
-    def __init__(self, code, name, high, low, size, unit, own, note):
-        self.code = code
-        self.name = name
-        self.high = high
-        self.low = low
-        self.size = size
-        self.unit = unit
-        self.own = own
-        self.note = note
-
     def __repr__(self):
         return '<Code %r>' % self.code
 
-    def update(self, d):
-        self.name = d['name']
-        self.high = d['high']
-        self.low = d['low']
-        self.size = d['size']
-        self.unit = d['unit']
-        self.own = d['own']
-        self.note = d['note']
