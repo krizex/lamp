@@ -82,7 +82,6 @@ class GridUnit(object):
                 sell = self.ruler[hold - 1]
                 buy = self.ruler[hold + 1]
                 d = 1 - (self.cur_price - buy) / 1.0 / (sell - buy)
-                log.info(d)
                 rets.append(d)
         return rets
 
