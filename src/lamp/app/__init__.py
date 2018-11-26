@@ -5,6 +5,10 @@ from lamp import config
 
 app = Flask(__name__)
 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///%s' % config.database
+from lamp.model import db
+db.init_app(app)
+
 from lamp.app.views import display_candidates_data
 from lamp.app.views import display_grids_data
 
