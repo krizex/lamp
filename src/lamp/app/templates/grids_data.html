@@ -61,7 +61,7 @@ Grid
     </thead>
     <tbody>
         {% for r in recs %}
-        <TR {{r.color_class}}>
+        <TR {{r}}>
             <!-- CODE -->
             <TD rowspan="2">
                 <a href="https://xueqiu.com/k?q={{r.code}}#/stock">
@@ -110,7 +110,7 @@ Grid
             <!-- note -->
             <TD rowspan="2">{{r.note}}</TD>
         </TR>
-        <TR {{r.color_class}}>
+        <TR>
             <!-- SELL -->
             <TD>{{r.next_sell.1}}</TD>
             <!-- next op distance -->

@@ -1,4 +1,5 @@
-from lamp.stocks.stock import Stock
+from lamp.stocks.stock import Stock, StockMgr
+from lamp.model import Candidate, Grid
 from lamp.log import log
 from lamp.utils.util import calc_ruler
 from abc import ABCMeta, abstractproperty, abstractmethod
@@ -46,33 +47,6 @@ class GridUnit(object):
         else:
             return [cur_pos, cur_pos + 1]
 
-    def get_ruler_scale(self, pos):
-        if pos < 0 or pos >= len(self.ruler):
-            return 'NA'
-        else:
-            return '%.3f' % self.ruler[pos]
-
-    @property
-    def hold_count(self):
-        holds = self.calc_hold_cnt()
-        return ['%d' % (hold * self.unit) for hold in holds]
-
-    @property
-    def next_sell(self):
-        rets = []
-        for pos in self.calc_hold_cnt():
-            rets.append(self.get_ruler_scale(pos - 1))
-
-        return rets
-
-    @property
-    def next_buy(self):
-        rets = []
-        for pos in self.calc_hold_cnt():
-            rets.append(self.get_ruler_scale(pos + 1))
-
-        return rets
-
     def calc_next_op_distance(self):
         rets = []
         for hold in self.calc_hold_cnt():
@@ -85,29 +59,16 @@ class GridUnit(object):
                 rets.append(d)
         return rets
 
-    @property
-    def next_op_distance(self):
-        return self.calc_next_op_distance()
+    def trend_start_ndays(self, n):
+        return self.stock.get_highest_in_n_days(n)
 
-    @property
-    def trend_start(self):
-        return self.stock.get_highest_in_n_days(22)
+    def trend_stop_ndays(self, n):
+        return self.stock.get_lowest_in_n_days(n)
 
-    @property
-    def trend_stop(self):
-        return self.stock.get_lowest_in_n_days(11)
 
-    @property
-    def trend_info(self):
-        low = self.trend_stop
-        high = self.trend_start
-        l = (high - low) / 2.0
-        cur = self.cur_price - low
-        if cur >= l:
-            color = 'bg-success'
-            pos = (cur - l) / l
-        else:
-            color = 'bg-danger'
-            pos = (l - cur) / l
+def get_grids():
+    StockMgr.skip = False
+    records = Grid.query.all()
+    records = [GridUnit(rec) for rec in records]
 
-        return color, pos
+    return records

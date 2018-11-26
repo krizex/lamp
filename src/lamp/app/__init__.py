@@ -1,27 +1,20 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template
+from jinja2 import StrictUndefined
 from lamp import config
 
 app = Flask(__name__)
+app.jinja_env.undefined = StrictUndefined
+
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///%s' % config.database
 from lamp.model import db
 db.init_app(app)
 
-from lamp.app.views import display_candidates_data
-from lamp.app.views import display_grids_data
 
+from lamp.app import routers
 
-@app.route('/')
-@app.route('/wave/')
-def index():
-    return display_candidates_data()
-
-
-@app.route('/grid/')
-def grid():
-    return display_grids_data()
 
 
 if __name__ == "__main__":
