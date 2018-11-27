@@ -79,13 +79,11 @@ class CandidateUnit(object):
         else:
             return cmp(self.cur_benefit, other.cur_benefit)
 
-    @property
-    def trend_start(self):
-        return self.stock.get_highest_in_n_days(22)
+    def trend_start_ndays(self, n):
+        return self.stock.get_highest_in_n_days(n)
 
-    @property
-    def trend_stop(self):
-        return self.stock.get_lowest_in_n_days(11)
+    def trend_stop_ndays(self, n):
+        return self.stock.get_lowest_in_n_days(n)
 
 
 def get_sorted_candidates():

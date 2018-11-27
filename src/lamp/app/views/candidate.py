@@ -3,6 +3,7 @@
 from flask import render_template
 from abc import ABCMeta, abstractproperty, abstractmethod
 
+from lamp.utils.absattr import AbsAttrPassThrough
 from lamp.app.controllers.candidate import get_sorted_candidates
 
 
@@ -14,41 +15,24 @@ class AbstractCandidateView(object):
         pass
 
 
-class CandidateView(AbstractCandidateView):
+class CandidateView(AbstractCandidateView, AbsAttrPassThrough):
+    _PASS_THROUGH_ATTRS = [
+        'code',
+        'name',
+        'own',
+        'note',
+        'start_price',
+        'cur_price',
+        'cur_benefit',
+        'cur_p_change',
+    ]
+
     def __init__(self, candidate):
         self.c = candidate
 
     @property
-    def code(self):
-        return self.c.code
-
-    @property
-    def name(self):
-        return self.c.name
-
-    @property
-    def own(self):
-        return self.c.own
-
-    @property
-    def note(self):
-        return self.c.note
-
-    @property
-    def start_price(self):
-        return self.c.start_price
-
-    @property
-    def cur_price(self):
-        return self.c.cur_price
-
-    @property
-    def cur_benefit(self):
-        return self.c.cur_benefit
-
-    @property
-    def cur_p_change(self):
-        return self.c.cur_p_change
+    def _datasource(self):
+        return self.c
 
     @property
     def start_pe(self):
@@ -108,8 +92,8 @@ class CandidateView(AbstractCandidateView):
 
     @property
     def trend_info(self):
-        low = self.c.trend_stop
-        high = self.c.trend_start
+        low = self.trend_stop
+        high = self.trend_start
         l = (high - low) / 2.0
         cur = self.c.cur_price - low
         if cur >= l:
@@ -131,11 +115,11 @@ class CandidateView(AbstractCandidateView):
 
     @property
     def trend_start(self):
-        return self.c.trend_start
+        return self.c.trend_start_ndays(22)
 
     @property
     def trend_stop(self):
-        return self.c.trend_stop
+        return self.c.trend_stop_ndays(11)
 
 
 class WaveView(CandidateView):
@@ -175,8 +159,7 @@ class TrendView(CandidateView):
 
     @property
     def stop_loss_price(self):
-        return '%.2f' % self.c.trend_stop
-
+        return '%.2f' % self.trend_stop
 
 
 def build_render(candidate):

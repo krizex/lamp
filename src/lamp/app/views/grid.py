@@ -3,19 +3,27 @@
 from flask import render_template
 
 from lamp.app.controllers.grid import get_grids
+from lamp.utils.absattr import AbsAttrPassThrough
 
 
-class GridView(object):
+class GridView(AbsAttrPassThrough):
+    _PASS_THROUGH_ATTRS = [
+        'code',
+        'name',
+        'size',
+        'unit',
+        'note',
+        'cur_price',
+        'cur_p_change',
+        'width',
+    ]
+
     def __init__(self, grid):
         self.grid = grid
-        self.code = grid.code
-        self.name = grid.name
-        self.size = grid.size
-        self.unit = grid.unit
-        self.note = grid.note
-        self.cur_price = grid.cur_price
-        self.cur_p_change = grid.cur_p_change
-        self.width = grid.width
+
+    @property
+    def _datasource(self):
+        return self.grid
 
     @property
     def hold_count(self):
