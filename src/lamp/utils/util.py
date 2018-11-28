@@ -21,7 +21,7 @@ def calc_ruler(high, low, size):
 
 
 if __name__ == '__main__':
-    ruler = calc_ruler(40.8, 28.3, 10)[0]
+    ruler = calc_ruler(25.52, 18.0, 10)[0]
     print 'Ruler:'
     for i, r in enumerate(ruler):
         print '%2d:    %.3f' % (i, r)
