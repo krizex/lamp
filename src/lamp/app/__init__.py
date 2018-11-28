@@ -23,7 +23,7 @@ def _init_database():
     log.info('DB initialized.')
 
 
-_init_database()
+# _init_database()
 
 from lamp.app import routers
 
