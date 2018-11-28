@@ -9,8 +9,8 @@ app = Flask(__name__)
 app.jinja_env.undefined = StrictUndefined
 
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///%s' % config.database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///%s' % config.database
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
 from lamp.model import db
 db.init_app(app)
 
