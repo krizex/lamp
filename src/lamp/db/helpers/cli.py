@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-
-from lamp import app
 from lamp.model import Candidate
 from lamp.model import Grid
 from lamp.model import db
