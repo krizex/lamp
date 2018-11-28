@@ -2,5 +2,7 @@
     {"code":"601601", "high":40.8, "low":28.3, "size":10, "unit":100, "own":0, "note":""},
     {"code":"512000", "name":"QS-ETF", "high":0.97, "low":0.584, "size":20, "unit":4000, "own":0, "note":""},
     {"code":"000977", "high":25.52, "low":18.0, "size":10, "unit":100, "own":0, "note":""},
+    {"code":"000963", "high":55.82, "low":34.38, "size":5, "unit":100, "own":0, "note":""},
+    {"code":"600585", "high":35.67, "low":31.46, "size":6, "unit":100, "own":0, "note":""},
     {"code":"162411", "name": "HBYQ", "high":0.83, "low":0.375, "size":24, "unit":5000, "own":0, "note":""}
 ]
