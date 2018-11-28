@@ -14,17 +14,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///%s' % config.database
 from lamp.model import db
 db.init_app(app)
 
-def _init_database():
-    with app.app_context():
-        # db.create_all()
-        from lamp.db.helpers import cli
-        cli.update_candidates_from_file('data.json')
-        cli.update_grids_from_file('grid.json')
-    log.info('DB initialized.')
-
-
-# _init_database()
-
 from lamp.app import routers
 
 
