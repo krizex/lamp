@@ -35,7 +35,7 @@ class GridView(AbsAttrPassThrough):
             return 'NA'
         else:
             val = self.grid.ruler[pos]
-            if val >= 2.0:
+            if val >= 4.0:
                 return '%.2f' % val
             else:
                 return '%.3f' % val
