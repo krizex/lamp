@@ -48,14 +48,31 @@ class GridUnit(object):
             return [cur_pos, cur_pos + 1]
 
     def calc_next_op_distance(self):
+        def calc_pos(sell, buy):
+            return 1 - (self.cur_price - buy) / 1.0 / (sell - buy)
+
         rets = []
         for hold in self.calc_hold_cnt():
-            if hold <= 0 or hold >= self.size:
-                rets.append(-1)
+            if hold <= 0:
+                if self.cur_price > self.ruler[0]:
+                    rets.append(-1)
+                else:
+                    virt_sell = self.ruler[0]
+                    buy = self.ruler[1]
+                    d = calc_pos(virt_sell, buy)
+                    rets.append(d)
+            elif hold >= self.size:
+                if self.cur_price < self.ruler[-1]:
+                    rets.append(-1)
+                else:
+                    sell = self.ruler[-2]
+                    virt_buy = self.ruler[-1]
+                    d = calc_pos(sell, virt_buy)
+                    rets.append(d)
             else:
                 sell = self.ruler[hold - 1]
                 buy = self.ruler[hold + 1]
-                d = 1 - (self.cur_price - buy) / 1.0 / (sell - buy)
+                d = calc_pos(sell, buy)
                 rets.append(d)
         return rets
 
