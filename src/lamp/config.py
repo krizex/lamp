@@ -20,12 +20,22 @@ scanner = {
     'interval': 24 * 3600
 }
 
+def debug_on():
+    try:
+        if os.environ['FLASK_DEBUG'] == '1':
+            return True
+    except:
+        return False
+
+    return False
+
 logger = {
     'path': os.path.join(root_node['path'], 'logs'),
     'file': 'lamp.log',
     'level': logging.DEBUG,
     'maxBytes': 1024 * 1024 * 20,
     'backupCount': 5,
+    'term_logger': debug_on(),
 }
 
 database = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'database.db')

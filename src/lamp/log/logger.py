@@ -24,8 +24,9 @@ class Logger(object):
         handler.setFormatter(formatter)
         self.logger.addHandler(handler)
 
-        term_handler = logging.StreamHandler()
-        term_handler.setFormatter(formatter)
-        self.logger.addHandler(term_handler)
+        if config.logger['term_logger']:
+            term_handler = logging.StreamHandler()
+            term_handler.setFormatter(formatter)
+            self.logger.addHandler(term_handler)
 
 
