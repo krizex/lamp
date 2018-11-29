@@ -115,7 +115,7 @@ Grid
             <TD>{{r.next_sell.1}}</TD>
             <!-- next op distance -->
             <TD>
-                {% if r.next_op_distance.0 > 0 %}
+                {% if r.next_op_distance.1 > 0 %}
                 <input type="range" class="slider"
                        min="0" max="100" step="1" value={{(r.next_op_distance.1 * 100) | int}} disabled="true">
                 {% else %}
