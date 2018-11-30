@@ -116,3 +116,5 @@ src/app.pid
 nohup.out
 running/logs/*
 src/env.cfg
+src/grid.json
+src/data.json
