@@ -20,6 +20,8 @@ scanner = {
     'interval': 24 * 3600
 }
 
+basis_persistent_file = os.path.join(os.path.dirname(__file__), 'data', 'basis.json')
+
 def debug_on():
     try:
         if os.environ['FLASK_DEBUG'] == '1':

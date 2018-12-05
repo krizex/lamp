@@ -1,6 +1,10 @@
 import tushare as ts
 from lamp.utils.util import ndays_before_today
 from lamp.log import log
+from lamp import config
+from lamp.basis import gen
+import json
+import os
 
 
 class Stock(object):
@@ -45,30 +49,15 @@ class Stock(object):
 class __StockMgr(object):
     def __init__(self):
         self.inited = False
-        self.df = None
+        self._init_basis()
 
-    def _init(self):
-        if not self.inited:
-            self.df = self._init_basics()
+    def _init_basis(self):
+        f = config.basis_persistent_file
+        if not os.path.isfile(f):
+            gen.persistent_basis_to(f)
 
-    def _init_basics(self):
-        if self.skip:
-            return self.df
-
-        for _ in range(1):
-            try:
-                log.info('Fetching stock basics...')
-                pro = ts.pro_api('4105aca09e41fde2adac11ff8cdf7e05cef205d946e06935562e0010')
-                ret = pro.stock_basic(exchange='', list_status='L', fields='ts_code,symbol,name,area,industry,list_date')
-                # ret = ts.get_stock_basics()
-                log.info('Fetched')
-                self.inited = True
-                return ret
-            except:
-                log.exception('Failed to get stock basics')
-
-        self.skip = True
-        return None
+        with open(f) as f:
+            self.json = json.load(f)
 
     def full_code(self, code):
         if code.startswith('60'):
@@ -77,11 +66,8 @@ class __StockMgr(object):
             return code + '.SZ'
 
     def get_stock_info(self, code):
-        self._init()
-
         code = self.full_code(code)
-
-        return self.df.loc[self.df['ts_code'] == code].iloc[0]
+        return self.json[code]
 
     def get_stock_name(self, code):
         return self.get_stock_info(code)['name']

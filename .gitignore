@@ -111,7 +111,7 @@ venv.bak/
 dmypy.json
 
 # my
-src/lamp/data/database.db
+src/lamp/data/
 src/app.pid
 nohup.out
 running/logs/*

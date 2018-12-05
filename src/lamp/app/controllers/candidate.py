@@ -87,7 +87,6 @@ class CandidateUnit(object):
 
 
 def get_sorted_candidates():
-    StockMgr.skip = False
     records = Candidate.query.all()
     records = [CandidateUnit(rec) for rec in records]
 

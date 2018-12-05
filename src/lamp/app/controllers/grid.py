@@ -84,7 +84,6 @@ class GridUnit(object):
 
 
 def get_grids():
-    StockMgr.skip = False
     records = Grid.query.all()
     records = [GridUnit(rec) for rec in records]
 
