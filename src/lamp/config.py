@@ -23,13 +23,13 @@ scanner = {
 basis_persistent_file = os.path.join(os.path.dirname(__file__), 'data', 'basis.json')
 
 def debug_on():
-    try:
+    if 'FLASK_DEBUG' in os.environ:
         if os.environ['FLASK_DEBUG'] == '1':
             return True
-    except:
-        return False
-
-    return False
+        else:
+            return False
+    else:
+        return True
 
 logger = {
     'path': os.path.join(root_node['path'], 'logs'),
@@ -39,5 +39,6 @@ logger = {
     'backupCount': 5,
     'term_logger': debug_on(),
 }
+
 
 database = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'database.db')
