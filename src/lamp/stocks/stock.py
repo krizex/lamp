@@ -3,6 +3,7 @@ from lamp.utils.util import ndays_before_today
 from lamp.log import log
 from lamp import config
 from lamp.basis import gen
+from lamp.utils.file.sf import SharedFile
 import json
 import os
 
@@ -53,10 +54,9 @@ class __StockMgr(object):
 
     def _init_basis(self):
         f = config.basis_persistent_file
-        if not os.path.isfile(f):
-            gen.persistent_basis_to(f)
-
-        with open(f) as f:
+        sf = SharedFile(f)
+        sf.exclusive_create(gen.fetch_basis)
+        with sf.open_read() as f:
             self.json = json.load(f)
 
     def full_code(self, code):

@@ -12,19 +12,17 @@ def fetch_basis():
     log.info('Fetched')
     df = ret[['ts_code', 'name']]
     df = df.set_index('ts_code')
-    return json.loads(df.to_json(orient='index'))
+    return df.to_json(orient='index')
 
-
-def persistent_json(data, f):
-    with open(f, 'w') as f:
-        json.dump(data, f)
-
-def persistent_basis_to(f):
-    data = fetch_basis()
-    persistent_json(data, f)
 
 def main():
-    persistent_basis_to(config.basis_persistent_file)
+    filename = config.basis_persistent_file
+    if os.path.isfile(filename):
+        os.remove(filename)
+
+    from lamp.utils.file.sf import SharedFile
+    sf = SharedFile(filename)
+    sf.exclusive_create(fetch_basis)
 
 if __name__ == '__main__':
     main()
