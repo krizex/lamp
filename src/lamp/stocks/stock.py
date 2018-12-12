@@ -49,7 +49,6 @@ class Stock(object):
 
 class __StockMgr(object):
     def __init__(self):
-        self.inited = False
         self._init_basis()
 
     def _init_basis(self):

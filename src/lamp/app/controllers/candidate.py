@@ -1,6 +1,7 @@
 from lamp.stocks.stock import Stock, StockMgr
 from lamp.log import log
 from lamp.model import Candidate
+from lamp.utils.util import parallel_apply
 import traceback
 
 
@@ -88,8 +89,10 @@ class CandidateUnit(object):
 
 def get_sorted_candidates():
     records = Candidate.query.all()
-    records = [CandidateUnit(rec) for rec in records]
+    def build(x):
+        return CandidateUnit(x)
 
+    records = parallel_apply(records, build)
     records = sorted(records)
 
     return records

@@ -19,3 +19,11 @@ def calc_ruler(high, low, size):
     ruler = ruler[::-1]
     return ruler, rate
 
+
+def parallel_apply(recs, f):
+    from multiprocessing.pool import ThreadPool
+    pool = ThreadPool(8)
+    rets = pool.map(f, recs)
+    pool.close()
+    pool.join()
+    return rets

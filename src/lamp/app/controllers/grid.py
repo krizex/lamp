@@ -1,7 +1,7 @@
 from lamp.stocks.stock import Stock, StockMgr
 from lamp.model import Candidate, Grid
 from lamp.log import log
-from lamp.utils.util import calc_ruler
+from lamp.utils.util import calc_ruler, parallel_apply
 from abc import ABCMeta, abstractproperty, abstractmethod
 import traceback
 
@@ -85,6 +85,9 @@ class GridUnit(object):
 
 def get_grids():
     records = Grid.query.all()
-    records = [GridUnit(rec) for rec in records]
+    def build(x):
+        return GridUnit(x)
+
+    records = parallel_apply(records, build)
 
     return records
