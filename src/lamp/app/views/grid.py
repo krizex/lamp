@@ -90,9 +90,10 @@ class GridView(AbsAttrPassThrough):
         return self.grid.fund.ass_val_date[5:]
 
     @property
-    def premium_info(self):
+    def premium(self):
         premium = self.grid.calc_premium()
-        return '%+.2f%%' % (premium * 100,)
+        return premium
+        # return '%+.2f%%' % (premium * 100,)
 
 
 def display_grids_data():
