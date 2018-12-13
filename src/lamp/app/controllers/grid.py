@@ -1,4 +1,5 @@
 from lamp.stocks.stock import Stock, StockMgr
+from lamp.stocks.fund import Fund
 from lamp.model import Candidate, Grid
 from lamp.log import log
 from lamp.utils.util import calc_ruler, parallel_apply
@@ -14,13 +15,14 @@ class GridUnit(object):
         self.unit = grid.unit
         self.note = grid.note
         self.ruler, self.width = calc_ruler(grid.high, grid.low, grid.size)
-        self.fill_info()
+        self.fill_stock_info()
+        self.is_fund = self.stock.is_fund
+        if self.is_fund:
+            self.fill_fund_info()
 
-    def fill_info(self):
+    def fill_stock_info(self):
         log.debug('Fetching %s', self.code)
         self.stock = Stock(self.code)
-        # self.cur_price = 0.1
-        # self.cur_p_change = 0.0
         try:
             if not self.name:
                 self.name = self.stock.name
@@ -28,6 +30,9 @@ class GridUnit(object):
             self.cur_p_change = self.stock.get_last_day_p_change()
         except Exception as e:
             log.exception('Cannot get info for %s' % self.code)
+
+    def fill_fund_info(self):
+        self.fund = Fund(self.code)
 
     def calc_cur_ruler_pos(self):
         """The first sell pos"""
@@ -81,6 +86,11 @@ class GridUnit(object):
 
     def trend_stop_ndays(self, n):
         return self.stock.get_lowest_in_n_days(n)
+
+    def calc_premium(self):
+        cur_val = self.cur_price
+        ass_val = self.fund.ass_val
+        return (cur_val - ass_val) / 1.0 / ass_val
 
 
 def get_grids():

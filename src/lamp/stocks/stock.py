@@ -12,11 +12,13 @@ class Stock(object):
     def __init__(self, code):
         self.code = code
         self.df = self.get_k_data()
+        self.is_fund = False
         try:
             self.name = StockMgr.get_stock_name(self.code)
         except Exception as e:
             # log.exception('Error when get stock name')
             self.name = 'UNKNOWN'
+            self.is_fund = True
 
     def get_k_data(self):
         try:

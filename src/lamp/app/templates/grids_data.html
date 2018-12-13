@@ -98,6 +98,13 @@ Grid
                 <p class={% if r.cur_p_change >= 0.0 %} "text-success" {% else %} "text-danger" {% endif %}>
                     {{'%+.2f%%' % (r.cur_p_change * 100)}}
                 </p>
+                {% if r.is_fund %}
+                <p class="text-white bg-primary">
+                {{r.ass_date}}
+                <BR>
+                {{r.premium_info}}
+                </p>
+                {% endif %}
             </TD>
             <!-- trend -->
             <TD rowspan="2">

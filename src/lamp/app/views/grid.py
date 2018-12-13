@@ -16,6 +16,7 @@ class GridView(AbsAttrPassThrough):
         'cur_price',
         'cur_p_change',
         'width',
+        'is_fund',
     ]
 
     def __init__(self, grid):
@@ -82,6 +83,15 @@ class GridView(AbsAttrPassThrough):
             pos = (l - cur) / l
 
         return color, pos
+
+    @property
+    def ass_date(self):
+        return self.grid.fund.ass_val_date
+
+    @property
+    def premium_info(self):
+        premium = self.grid.calc_premium()
+        return '%+.2f%%' % (premium * 100,)
 
 
 def display_grids_data():
