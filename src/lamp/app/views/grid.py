@@ -87,7 +87,7 @@ class GridView(AbsAttrPassThrough):
     @property
     def ass_date(self):
         # omit the year field
-        return self.grid.fund.ass_val_date[5:]
+        return self.grid.fund.ass_val_date[5:10]
 
     @property
     def premium(self):
