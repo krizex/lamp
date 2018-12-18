@@ -8,13 +8,13 @@ from lamp.log import log
 @app.route('/')
 @app.route('/wave/')
 def index():
-    cli.update_candidates_from_file('data.json')
+    # cli.update_candidates_from_file('data.json')
     log.debug('Candidate refreshed')
     return display_candidates_data()
 
 
 @app.route('/grid/')
 def grid():
-    cli.update_grids_from_file('grid.json')
+    # cli.update_grids_from_file('grid.json')
     log.debug('Grid refreshed')
     return display_grids_data()
