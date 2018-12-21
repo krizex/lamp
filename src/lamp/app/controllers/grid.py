@@ -16,7 +16,9 @@ class GridUnit(object):
         self.note = grid.note
         self.ruler, self.width = calc_ruler(grid.high, grid.low, grid.size)
         self.fill_stock_info()
-        self.is_fund = self.stock.is_fund
+        self.is_fund = False
+        # TODO: fix the value assesment
+        # self.is_fund = self.stock.is_fund
         if self.is_fund:
             self.fill_fund_info()
 
