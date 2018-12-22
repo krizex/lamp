@@ -6,10 +6,7 @@ from lamp import config
 
 
 def __init_config_dir():
-    for d in (config.root_node['path'],
-              config.data_node['path'],
-              config.file_store['path'],
-              config.logger['path']):
+    for d in (config.data_node,):
         if not os.path.exists(d):
             os.mkdir(d)
 

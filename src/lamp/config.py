@@ -20,7 +20,9 @@ scanner = {
     'interval': 24 * 3600
 }
 
-basis_persistent_file = os.path.join(os.path.dirname(__file__), 'data', 'basis.json')
+data_node = os.path.join(os.path.dirname(__file__), '..', 'data')
+database = os.path.join(data_node, 'database.db')
+basis_persistent_file = os.path.join(data_node, 'basis.json')
 
 def debug_on():
     if 'FLASK_DEBUG' in os.environ:
@@ -41,4 +43,3 @@ logger = {
 }
 
 
-database = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'database.db')

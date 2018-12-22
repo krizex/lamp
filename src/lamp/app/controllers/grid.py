@@ -14,6 +14,7 @@ class GridUnit(object):
         self.size = grid.size
         self.unit = grid.unit
         self.note = grid.note
+        self.own = grid.own
         self.ruler, self.width = calc_ruler(grid.high, grid.low, grid.size)
         self.fill_stock_info()
         self.is_fund = False
@@ -94,6 +95,14 @@ class GridUnit(object):
         ass_val = self.fund.ass_val
         return (cur_val - ass_val) / 1.0 / ass_val
 
+    def __cmp__(self, other):
+        if self.own > other.own:
+            return -1
+        elif self.own < other.own:
+            return 1
+        else:
+            return 0
+
 
 def get_grids():
     records = Grid.query.all()
@@ -101,5 +110,6 @@ def get_grids():
         return GridUnit(x)
 
     records = parallel_apply(records, build)
+    records = sorted(records)
 
     return records
