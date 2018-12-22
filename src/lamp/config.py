@@ -17,7 +17,7 @@ def debug_on():
         return True
 
 logger = {
-    'path': os.path.join(root_node['path'], 'logs'),
+    'path': '/var/log',
     'file': 'lamp.log',
     'level': logging.DEBUG,
     'maxBytes': 1024 * 1024 * 20,
