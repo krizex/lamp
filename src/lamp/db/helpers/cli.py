@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
+import json
+from collections import OrderedDict
 from lamp.model import Candidate
 from lamp.model import Grid
 from lamp.model import db
-import json
 
 def list_candidates():
     recs = Candidate.query.all()
@@ -36,3 +37,31 @@ def update_candidates_from_file(f):
 def update_grids_from_file(f):
     update_from_file(f, Grid)
 
+
+def dump_data(cls):
+    dmp = []
+    recs = cls.query.all()
+    for rec in recs:
+        d = OrderedDict()
+        for col in rec.__table__.columns:
+            attr = col.key
+            if attr.startswith('_') or attr == 'id':
+                continue
+            d[attr] = getattr(rec, attr)
+        dmp.append(d)
+
+    print json.dumps(dmp, indent=4)
+
+
+def tbl_name2cls(name):
+    if name == 'grid':
+        return Grid
+    elif name == 'candidate':
+        return Candidate
+
+    raise RuntimeError('Unknow table %s' % name)
+
+
+def dump_table(tblname):
+    tbl_cls = tbl_name2cls(tblname)
+    dump_data(tbl_cls)
