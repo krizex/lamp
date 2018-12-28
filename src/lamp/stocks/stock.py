@@ -16,14 +16,15 @@ class Stock(object):
         try:
             self.name = StockMgr.get_stock_name(self.code)
         except Exception as e:
-            # log.exception('Error when get stock name')
+            log.exception('Error when get stock name')
             self.name = 'UNKNOWN'
             self.is_fund = True
 
     def get_k_data(self):
         try:
             return ts.get_k_data(self.code, retry_count=10)
-        except:
+        except Exception as e:
+            log.exception('ts.get_k_data failed')
             cons = ts.get_apis()
             return ts.bar(self.code, conn=cons, retry_count=10)
 
