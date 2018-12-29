@@ -1,4 +1,4 @@
-
+import os
 from flask import Flask
 from jinja2 import StrictUndefined
 from lamp import config
@@ -11,5 +11,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///%s' % config.database
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SESSION_TYPE'] = 'sqlalchemy'
+app.config['SECRET_KEY'] = os.urandom(24)
 
 
