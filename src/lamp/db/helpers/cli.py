@@ -30,14 +30,6 @@ def update_from_file(f, cls):
     db.session.commit()
 
 
-def update_candidates_from_file(f):
-    update_from_file(f, Candidate)
-
-
-def update_grids_from_file(f):
-    update_from_file(f, Grid)
-
-
 def dump_data(cls):
     dmp = []
     recs = cls.query.all()

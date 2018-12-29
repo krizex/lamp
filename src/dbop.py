@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import argparse
 import sys
+import os
 from lamp.app import app
 from lamp.db.helpers import cli
 
@@ -22,8 +23,10 @@ def refresh_data(args):
         exit(0)
 
     with app.app_context():
-        cli.update_candidates_from_file('data.json')
-        cli.update_grids_from_file('grid.json')
+        data_folder = 'datasource'
+        for tbl in ['candidate', 'grid']:
+            tbl_cls = cli.tbl_name2cls(tbl)
+            cli.update_from_file(os.path.join(data_folder, tbl+'.json'), tbl_cls)
 
 
 def init_db(args):
