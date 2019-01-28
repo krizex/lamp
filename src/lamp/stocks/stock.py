@@ -16,7 +16,8 @@ class Stock(object):
         try:
             self.name = StockMgr.get_stock_name(self.code)
         except Exception as e:
-            log.exception('Error when get stock name')
+            log.info('Cannot get stock name for %s' % self.code)
+            # log.exception('Error when get stock name')
             self.name = 'UNKNOWN'
             self.is_fund = True
 
