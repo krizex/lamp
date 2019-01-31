@@ -101,7 +101,7 @@ class GridUnit(object):
         elif self.own < other.own:
             return 1
         else:
-            return 0
+            return cmp(self.code, other.code)
 
 
 def get_grids():
