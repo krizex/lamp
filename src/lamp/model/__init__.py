@@ -5,3 +5,10 @@ db = SQLAlchemy()
 # Import models here
 from lamp.model.candidate import Candidate
 from lamp.model.grid import Grid
+from lamp.model.trend import Trend
+
+ALL_TABLES = {
+    'candidate': Candidate,
+    'grid': Grid,
+    'trend': Trend,
+}

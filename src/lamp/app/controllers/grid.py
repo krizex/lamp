@@ -1,38 +1,27 @@
-from lamp.stocks.stock import Stock, StockMgr
 from lamp.stocks.fund import Fund
-from lamp.model import Candidate, Grid
+from lamp.model import Grid
 from lamp.log import log
 from lamp.utils.util import calc_ruler, parallel_apply
+from lamp.app.controllers.base import ObjectBaseUnit
 from abc import ABCMeta, abstractproperty, abstractmethod
 import traceback
 
 
-class GridUnit(object):
+class GridUnit(ObjectBaseUnit):
     def __init__(self, grid):
-        self.code = grid.code
-        self.name = grid.name
+        super(GridUnit, self).__init__(grid.code, grid.name, grid.own)
         self.size = grid.size
         self.unit = grid.unit
         self.note = grid.note
         self.own = grid.own
         self.ruler, self.width = calc_ruler(grid.high, grid.low, grid.size)
-        self.fill_stock_info()
         self.is_fund = False
         # TODO: fix the value assesment
         # self.is_fund = self.stock.is_fund
         if self.is_fund:
             self.fill_fund_info()
-
-    def fill_stock_info(self):
-        log.debug('Fetching %s', self.code)
-        self.stock = Stock(self.code)
-        try:
-            if not self.name:
-                self.name = self.stock.name
-            self.cur_price = self.stock.get_last_day_close()
-            self.cur_p_change = self.stock.get_last_day_p_change()
-        except Exception as e:
-            log.exception('Cannot get info for %s' % self.code)
+        self.trend_up_days_cnt = 22
+        self.trend_down_days_cnt = 11
 
     def fill_fund_info(self):
         self.fund = Fund(self.code)
@@ -84,24 +73,10 @@ class GridUnit(object):
                 rets.append(d)
         return rets
 
-    def trend_start_ndays(self, n):
-        return self.stock.get_highest_in_n_days(n)
-
-    def trend_stop_ndays(self, n):
-        return self.stock.get_lowest_in_n_days(n)
-
     def calc_premium(self):
         cur_val = self.cur_price
         ass_val = self.fund.ass_val
         return (cur_val - ass_val) / 1.0 / ass_val
-
-    def __cmp__(self, other):
-        if self.own > other.own:
-            return -1
-        elif self.own < other.own:
-            return 1
-        else:
-            return cmp(self.code, other.code)
 
 
 def get_grids():

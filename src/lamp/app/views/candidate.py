@@ -115,11 +115,11 @@ class CandidateView(AbstractCandidateView, AbsAttrPassThrough):
 
     @property
     def trend_start(self):
-        return self.c.trend_start_ndays(22)
+        return self.c.trend_high_ndays(22)
 
     @property
     def trend_stop(self):
-        return self.c.trend_stop_ndays(11)
+        return self.c.trend_low_ndays(11)
 
 
 class WaveView(CandidateView):

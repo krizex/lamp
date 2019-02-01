@@ -5,6 +5,7 @@ from flask import redirect
 
 
 class AuthModelView(ModelView):
+    can_delete = False
     def is_accessible(self):
         if not basic_auth.authenticate():
             raise AuthException('Not authenticated.')

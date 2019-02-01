@@ -1,5 +1,6 @@
 from lamp.model import db
 
+
 class Grid(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     code = db.Column(db.String(10), unique=True, nullable=False)
@@ -12,5 +13,5 @@ class Grid(db.Model):
     note = db.Column(db.Text)
 
     def __repr__(self):
-        return '<Code %r>' % self.code
+        return 'Grid <Code %r>' % self.code
 

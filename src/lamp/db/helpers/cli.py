@@ -4,6 +4,7 @@ from collections import OrderedDict
 from lamp.model import Candidate
 from lamp.model import Grid
 from lamp.model import db
+from lamp.model import ALL_TABLES
 
 def list_candidates():
     recs = Candidate.query.all()
@@ -46,10 +47,8 @@ def dump_data(cls):
 
 
 def tbl_name2cls(name):
-    if name == 'grid':
-        return Grid
-    elif name == 'candidate':
-        return Candidate
+    if name in ALL_TABLES:
+        return ALL_TABLES[name]
 
     raise RuntimeError('Unknow table %s' % name)
 

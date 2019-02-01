@@ -17,6 +17,7 @@ class GridView(AbsAttrPassThrough):
         'cur_p_change',
         'width',
         'is_fund',
+        'own',
     ]
 
     def __init__(self, grid):
@@ -62,17 +63,17 @@ class GridView(AbsAttrPassThrough):
         return self.grid.calc_next_op_distance()
 
     @property
-    def trend_start(self):
-        return self.grid.trend_start_ndays(22)
+    def trend_high(self):
+        return self.grid.trend_high_ndays(self.grid.trend_up_days_cnt)
 
     @property
-    def trend_stop(self):
-        return self.grid.trend_stop_ndays(11)
+    def trend_low(self):
+        return self.grid.trend_low_ndays(self.grid.trend_down_days_cnt)
 
     @property
     def trend_info(self):
-        low = self.trend_stop
-        high = self.trend_start
+        low = self.trend_low
+        high = self.trend_high
         l = (high - low) / 2.0
         cur = self.grid.cur_price - low
         if cur >= l:
@@ -96,7 +97,8 @@ class GridView(AbsAttrPassThrough):
         # return '%+.2f%%' % (premium * 100,)
 
 
-def display_grids_data():
+def get_grids_data():
     recs = get_grids()
     recs = [GridView(r) for r in recs]
-    return render_template('grids_data.html', recs=recs)
+    return recs
+

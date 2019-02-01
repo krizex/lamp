@@ -5,6 +5,7 @@ import sys
 import os
 from lamp.app import app
 from lamp.db.helpers import cli
+from lamp.model import ALL_TABLES
 
 def confirm(cfm_str):
     """
@@ -24,7 +25,7 @@ def refresh_data(args):
 
     with app.app_context():
         data_folder = 'datasource'
-        for tbl in ['candidate', 'grid']:
+        for tbl in ALL_TABLES.iterkeys():
             tbl_cls = cli.tbl_name2cls(tbl)
             cli.update_from_file(os.path.join(data_folder, tbl+'.json'), tbl_cls)
 
