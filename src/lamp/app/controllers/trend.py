@@ -24,6 +24,12 @@ class TrendUnit(ObjectBaseUnit):
         highest = self.trend_high_ndays(self.trend_up_days_cnt)
         return highest * 1.0 * ((1 - self.ratio) ** 2)
 
+    def calc_trend_position_of_cur_price(self):
+        highest = self.trend_high_ndays(self.trend_up_days_cnt)
+        flush_price = self.flush_price()
+
+        return (self.cur_price - flush_price) / 1.0 / (highest - flush_price)
+
     def __cmp__(self, other):
         if self.own > other.own:
             return -1

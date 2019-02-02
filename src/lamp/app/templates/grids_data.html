@@ -154,12 +154,13 @@ Grid
     <thead>
         <TR>
             <TH>CODE/NAME</TH>
-            <TH>RATIO</TH>
-            <TH>UNIT</TH>
+            <TH>RATIO/UNIT</TH>
             <TH>NEXT-BUY</TH>
             <TH>CUR-HOLD</TH>
-            <TH>CUR-PRICE</TH>
             <TH>FLUSH-PRICE</TH>
+            <TH>OP-TREND</TH>
+            <TH>HIGHEST-PRICE</TH>
+            <TH>CUR-PRICE</TH>
             <TH>TREND</TH>
             <TH>NOTE</TH>
         </TR>
@@ -169,20 +170,32 @@ Grid
         <TR>
             <!-- CODE -->
             <TD>
+                {% if r.own != 1 %}
+                #
+                {% endif %}
                 <a href="https://xueqiu.com/k?q={{r.code}}#/stock">
                     {{r.code}} <BR> {{r.name}}
                 </a>
             </TD>
-            <!-- RATIO -->
+            <!-- RATIO/UNIT -->
             <TD>
                 {{'%.2f%%' % (r.ratio * 100)}}
+                <BR>
+                {{r.unit}}
             </TD>
-            <!-- UNIT -->
-            <TD>{{r.unit}}</TD>
             <!-- NEXT-BUY -->
-            <TD class="table-active">{{r.next_buy}}</TD>
+            <TD>{{r.next_buy}}</TD>
             <!-- CUR-HOLD -->
-            <TD class="table-active"> {{r.cur_hold}} </TD>
+            <TD> {{r.cur_hold}} </TD>
+            <!-- FLUSH-PRICE -->
+            <TD class="table-active"> {{r.flush_price}} </TD>
+            <!-- OP-TREND -->
+            <TD>
+            <input type="range" class="slider"
+                   min="0" max="100" step="1" value={{(r.trend_position_of_cur_price * 100) | int}} disabled="true">
+            </TD>
+            <!-- HIGHEST-PRICE -->
+            <TD class="table-active">{{r.trend_high}}</TD>
             <!-- CUR-PRICE -->
             <TD>
                 {{r.cur_price}}
@@ -190,10 +203,6 @@ Grid
                 <p class={% if r.cur_p_change >= 0.0 %} "text-success" {% else %} "text-danger" {% endif %}>
                     {{'%+.2f%%' % (r.cur_p_change * 100)}}
                 </p>
-            </TD>
-            <!-- FLUSH-PRICE -->
-            <TD>
-                {{r.flush_price}}
             </TD>
             <!-- trend -->
             <TD>

@@ -34,10 +34,6 @@ class TrendView(AbsAttrPassThrough):
     def flush_price(self):
         return '%.2f' % self.trend.flush_price()
 
-    # @property
-    # def next_op_distance(self):
-    #     return self.grid.calc_next_op_distance()
-
     @property
     def trend_high(self):
         return self.trend.trend_high_ndays(self.trend.trend_up_days_cnt)
@@ -64,6 +60,10 @@ class TrendView(AbsAttrPassThrough):
     @property
     def cur_hold(self):
         return self.trend.cur_hold * self.unit
+
+    @property
+    def trend_position_of_cur_price(self):
+        return self.trend.calc_trend_position_of_cur_price()
 
 
 def get_trends_data():
