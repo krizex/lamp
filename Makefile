@@ -17,14 +17,13 @@ debug:
 	docker run -it -p $(HOST_DEBUG_PORT):$(CONTAINER_PORT) $(IMAGE_LABEL):latest /bin/bash
 
 run:
-	docker run --name $(CONTAINER_NAME) -d \
+	docker run --name $(CONTAINER_NAME) -d --rm \
     -p 127.0.0.1:$(HOST_RUN_PORT):$(CONTAINER_PORT) \
 	-v $(CUR_DIR)/data:/db:rw \
-	-v /var/log:/var/log/rw \
+	-v /var/log:/var/log:rw \
 	$(IMAGE_LABEL):latest
 
 stop:
 	docker stop $(CONTAINER_NAME)
-	docker rm $(CONTAINER_NAME)
 
 restart: stop run
