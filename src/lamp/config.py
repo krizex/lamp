@@ -3,9 +3,10 @@
 import logging
 import os
 
-data_node = os.path.join(os.path.dirname(__file__), '..', 'data')
+data_node = '/db'
 database = os.path.join(data_node, 'database.db')
 basis_persistent_file = os.path.join(data_node, 'basis.json')
+
 
 def debug_on():
     if 'FLASK_DEBUG' in os.environ:

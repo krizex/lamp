@@ -7,7 +7,6 @@ from lamp.log import log
 from flask import render_template
 
 
-@app.route('/')
 @app.route('/wave/')
 def index():
     # cli.update_candidates_from_file('data.json')
@@ -15,6 +14,7 @@ def index():
     return display_candidates_data()
 
 
+@app.route('/')
 @app.route('/grid/')
 def grid():
     # cli.update_grids_from_file('grid.json')

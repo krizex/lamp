@@ -118,3 +118,5 @@ running/logs/*
 src/env.cfg
 src/datasource/
 src/datasource
+_build/
+data
