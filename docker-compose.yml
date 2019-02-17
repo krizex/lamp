@@ -1,0 +1,19 @@
+version: '3'
+services:
+    nginx:
+        image: nginx:stable
+        ports:
+            - "8000:8000"
+        volumes:
+            - ${PWD}/nginx_conf:/etc/nginx 
+            - ${PWD}/src/lamp/app/static:/var/www/static
+        links:
+            - lamp
+        depends_on:
+            - lamp
+
+    lamp:
+        image: krizex/lamp:latest
+        volumes:
+            - ${PWD}/data:/db:rw
+            - /var/log:/var/log:rw

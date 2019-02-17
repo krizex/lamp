@@ -41,3 +41,11 @@ stop:
 	-docker stop $(NGINX_CONTAINER_NAME)
 
 restart: stop run
+
+.PHONY: run-compose stop-compose
+
+run-compose:
+	docker-compose up -d
+
+stop-compose:
+	docker-compose down
