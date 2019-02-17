@@ -4,6 +4,8 @@ HOST_DEBUG_PORT := 8000
 CUR_DIR := $(shell pwd)
 APP_CONTAINER_NAME := lamp
 NGINX_CONTAINER_NAME := nginx
+NGINX_CONTAINER_PORT := 8000
+HOST_SERVER_PORT := 8000
 
 .PHONY: build
 build:
@@ -26,7 +28,7 @@ run-lamp:
 
 run-nginx:
 	@echo starting nginx...
-	docker run --rm -d --link lamp -p 8000:8000  \
+	docker run --rm -d --link lamp -p $(HOST_SERVER_PORT):$(NGINX_CONTAINER_PORT) \
 	-v $(CUR_DIR)/nginx_conf:/etc/nginx \
 	-v $(CUR_DIR)/src/lamp/app/static:/var/www/static \
 	--name $(NGINX_CONTAINER_NAME) nginx:stable
