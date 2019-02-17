@@ -22,7 +22,7 @@ run-lamp:
 	@echo starting lamp...
 	docker run --rm --name $(APP_CONTAINER_NAME) -d \
 	-v $(CUR_DIR)/data:/db:rw \
-	-v /var/log:/var/log/rw \
+	-v /var/log:/var/log:rw \
 	$(IMAGE_LABEL):latest
 
 
