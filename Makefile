@@ -1,9 +1,9 @@
-IMAGE_LABEL := lamp
-CONTAINER_PORT := 8000
+IMAGE_LABEL := krizex/lamp
+CONTAINER_PORT := 8001
 HOST_DEBUG_PORT := 8000
-HOST_RUN_PORT := 8001
 CUR_DIR := $(shell pwd)
-CONTAINER_NAME := lamp
+APP_CONTAINER_NAME := lamp
+NGINX_CONTAINER_NAME := nginx
 
 .PHONY: build
 build:
@@ -12,19 +12,30 @@ build:
 	docker build -t $(IMAGE_LABEL) .
 	rm -rf _build/datatmp
 
-.PHONY: debug run stop restart
+.PHONY: debug run stop restart run-nginx run-lamp
 debug:
-	docker run -it -p $(HOST_DEBUG_PORT):$(CONTAINER_PORT) $(IMAGE_LABEL):latest /bin/bash
+	docker run -it --rm -p $(HOST_DEBUG_PORT):$(CONTAINER_PORT) $(IMAGE_LABEL):latest /bin/bash
 
-run:
-	docker run --name $(CONTAINER_NAME) -d \
-    -p 127.0.0.1:$(HOST_RUN_PORT):$(CONTAINER_PORT) \
+run-lamp:
+	@echo starting lamp...
+	docker run --rm --name $(APP_CONTAINER_NAME) -d \
 	-v $(CUR_DIR)/data:/db:rw \
 	-v /var/log:/var/log/rw \
 	$(IMAGE_LABEL):latest
 
+
+run-nginx:
+	@echo starting nginx...
+	docker run --rm -d --link lamp -p 8000:8000  \
+	-v $(CUR_DIR)/nginx_conf:/etc/nginx \
+	-v $(CUR_DIR)/src/lamp/app/static:/var/www/static \
+	--name $(NGINX_CONTAINER_NAME) nginx:stable
+
+run: run-lamp run-nginx
+
 stop:
-	docker stop $(CONTAINER_NAME)
-	docker rm $(CONTAINER_NAME)
+	@echo stopping...
+	-docker stop $(APP_CONTAINER_NAME)
+	-docker stop $(NGINX_CONTAINER_NAME)
 
 restart: stop run
