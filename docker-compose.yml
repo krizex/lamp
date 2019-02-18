@@ -16,4 +16,4 @@ services:
         image: krizex/lamp:latest
         volumes:
             - ${PWD}/data:/db:rw
-            - /var/log:/var/log:rw
+            - /var/log/lamp:/var/log:rw

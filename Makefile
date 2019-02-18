@@ -25,7 +25,7 @@ run-lamp:
 	docker run --rm -d \
 	--name $(APP_CONTAINER_NAME) \
 	-v $(CUR_DIR)/data:/db:rw \
-	-v /var/log:/var/log:rw \
+	-v /var/log/lamp:/var/log:rw \
 	$(IMAGE_LABEL):latest
 
 stop-lamp:
