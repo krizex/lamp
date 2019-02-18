@@ -11,41 +11,51 @@ HOST_SERVER_PORT := 8000
 build:
 	mkdir -p _build/datatmp
 	cp -r data/* _build/datatmp
-	docker build -t $(IMAGE_LABEL) .
+	docker build -t $(IMAGE_LABEL) --build-arg db=_build/datatmp .
 	rm -rf _build/datatmp
 
-.PHONY: debug run stop restart run-nginx run-lamp
+.PHONY: debug run-nginx stop-nginx run-lamp stop-lamp
 debug:
-	docker run -it --rm -p $(HOST_DEBUG_PORT):$(CONTAINER_PORT) $(IMAGE_LABEL):latest /bin/bash
+	docker run -it --rm \
+	-p $(HOST_DEBUG_PORT):$(CONTAINER_PORT) \
+	$(IMAGE_LABEL):latest /bin/bash
 
 run-lamp:
 	@echo starting lamp...
-	docker run --rm --name $(APP_CONTAINER_NAME) -d \
+	docker run --rm -d \
+	--name $(APP_CONTAINER_NAME) \
 	-v $(CUR_DIR)/data:/db:rw \
 	-v /var/log:/var/log:rw \
 	$(IMAGE_LABEL):latest
 
+stop-lamp:
+	@echo stopping lamp...
+	docker stop $(APP_CONTAINER_NAME)
 
 run-nginx:
 	@echo starting nginx...
-	docker run --rm -d --link lamp -p $(HOST_SERVER_PORT):$(NGINX_CONTAINER_PORT) \
+	docker run --rm -d \
+	--name $(NGINX_CONTAINER_NAME) \
+	--link lamp \
+	-p $(HOST_SERVER_PORT):$(NGINX_CONTAINER_PORT) \
 	-v $(CUR_DIR)/nginx_conf:/etc/nginx \
 	-v $(CUR_DIR)/src/lamp/app/static:/var/www/static \
-	--name $(NGINX_CONTAINER_NAME) nginx:stable
+	nginx:stable
 
-run: run-lamp run-nginx
+stop-nginx:
+	@echo stopping nginx...
+	docker stop $(NGINX_CONTAINER_NAME)
 
-stop:
-	@echo stopping...
-	-docker stop $(APP_CONTAINER_NAME)
-	-docker stop $(NGINX_CONTAINER_NAME)
-
-restart: stop run
-
-.PHONY: run-compose stop-compose
+.PHONY: run-compose stop-compose run stop restart
 
 run-compose:
 	docker-compose up -d
 
 stop-compose:
 	docker-compose down
+
+run: run-compose
+
+stop: stop-compose
+
+restart: stop run

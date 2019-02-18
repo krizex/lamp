@@ -1,4 +1,5 @@
 FROM centos:7.6.1810
+ARG db
 
 RUN yum install -y epel-release
 RUN yum install -y python-pip
@@ -9,7 +10,7 @@ RUN rm -f requirements.txt
 
 
 COPY src/ /app/
-COPY _build/datatmp/ /db/
+COPY ${db} /db/
 WORKDIR /app
 
 CMD ./server.sh start
