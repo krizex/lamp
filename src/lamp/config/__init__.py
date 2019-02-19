@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import logging
 import os
+from . import db
 
 data_node = '/db'
 database = os.path.join(data_node, 'database.db')
@@ -25,5 +26,4 @@ logger = {
     'backupCount': 5,
     'term_logger': debug_on(),
 }
-
 

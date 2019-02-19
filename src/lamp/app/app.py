@@ -8,8 +8,9 @@ app = Flask(__name__)
 # app.jinja_env.undefined = StrictUndefined
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///%s' % config.database
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///%s' % config.database
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
+app.config['SQLALCHEMY_DATABASE_URI'] = config.db.DATABASE_CONNECTION_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SESSION_TYPE'] = 'sqlalchemy'
 app.config['SECRET_KEY'] = os.urandom(24)
