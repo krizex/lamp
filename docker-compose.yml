@@ -1,35 +1,35 @@
 version: '3'
 services:
-    nginx:
-        image: nginx:stable
-        container_name: nginx
-        ports:
-            - "8000:8000"
-        volumes:
-            - ${PWD}/nginx_conf:/etc/nginx 
-            - ${PWD}/src/lamp/app/static:/var/www/static
-        links:
-            - lamp
-        depends_on:
-            - lamp
+  nginx:
+    image: nginx:stable
+    container_name: nginx
+    ports:
+      - "8000:8000"
+    volumes:
+      - ${PWD}/nginx_conf:/etc/nginx
+      - ${PWD}/src/lamp/app/static:/var/www/static
+    links:
+      - lamp
+    depends_on:
+      - lamp
 
-    lamp:
-        image: krizex/lamp:latest
-        container_name: lamp
-        volumes:
-            - ${PWD}/data:/persist:rw
-            - /var/log/lamp:/var/log:rw
-        env_file: database.conf
-        links:
-            - pg
-        depends_on:
-            - pg
+  lamp:
+    image: krizex/lamp:latest
+    container_name: lamp
+    volumes:
+      - ${PWD}/data:/persist:rw
+      - /var/lamp/log:/var/log:rw
+    env_file: database.conf
+    links:
+      - pg
+    depends_on:
+      - pg
 
-    pg:
-        image: postgres:10-alpine
-        container_name: pg
-        volumes:
-            - /var/lamp/db:/var/lib/postgresql/data:rw
-        env_file: database.conf
+  pg:
+    image: postgres:10-alpine
+    container_name: pg
+    volumes:
+      - /var/lamp/db:/var/lib/postgresql/data:rw
+    env_file: database.conf
 
 
