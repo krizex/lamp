@@ -70,7 +70,7 @@ run-pg:
 	docker run --rm -d \
 	--name $(DB_CONTAINER_NAME) \
 	--env-file database.conf \
-	-v $(CUR_DIR)/db:/var/lib/postgresql/data:rw \
+	-v /var/lamp/db:/var/lib/postgresql/data:rw \
 	postgres:10-alpine
 
 stop-pg:

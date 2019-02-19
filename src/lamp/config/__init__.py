@@ -4,8 +4,7 @@ import logging
 import os
 from . import db
 
-data_node = '/db'
-database = os.path.join(data_node, 'database.db')
+data_node = '/persist'
 basis_persistent_file = os.path.join(data_node, 'basis.json')
 
 
