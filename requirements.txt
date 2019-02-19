@@ -8,4 +8,4 @@ SQLAlchemy==1.2.12
 enum==0.4.7
 tushare==1.2.21
 bs4==0.0.1
-psycopg2==2.7.7
+psycopg2-binary==2.7.7
