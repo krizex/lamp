@@ -22,6 +22,7 @@ debug:
 	-p $(HOST_DEBUG_PORT):$(CONTAINER_PORT) \
 	--env-file database.conf \
 	-v $(CUR_DIR)/data:/persist:rw \
+	-v $(CUR_DIR)/src:/app \
 	$(IMAGE_LABEL):latest /bin/bash
 
 run-lamp:

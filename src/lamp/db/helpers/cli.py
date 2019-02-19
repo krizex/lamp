@@ -43,7 +43,7 @@ def dump_data(cls):
             d[attr] = getattr(rec, attr)
         dmp.append(d)
 
-    print json.dumps(dmp, indent=4)
+    return dmp
 
 
 def tbl_name2cls(name):
@@ -55,4 +55,4 @@ def tbl_name2cls(name):
 
 def dump_table(tblname):
     tbl_cls = tbl_name2cls(tblname)
-    dump_data(tbl_cls)
+    return dump_data(tbl_cls)

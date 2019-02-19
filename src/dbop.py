@@ -7,6 +7,7 @@ from lamp.app import app
 from lamp.db.helpers import cli
 from lamp.model import ALL_TABLES
 from lamp import config
+import json
 
 def confirm(cfm_str):
     """
@@ -42,9 +43,23 @@ def init_db(args):
         db.create_all()
 
 
-def dump_db(args):
+def dump_table(args):
     with app.app_context():
-        cli.dump_table(args.tbl)
+        dmp = cli.dump_table(args.tbl)
+        print json.dumps(dmp, indent=4)
+
+def dump_all(args):
+    outd = args.outfolder
+    if not os.path.exists(outd):
+        os.makedirs(outd)
+
+    with app.app_context():
+        for tbl in ALL_TABLES.iterkeys():
+            dmp = cli.dump_table(tbl)
+            outf = os.path.join(outd, tbl + '.json')
+            print 'dumping %s' % outf
+            with open(outf, 'w') as f:
+                json.dump(dmp, f, indent=4)
 
 
 def build_parser():
@@ -58,8 +73,12 @@ def build_parser():
     initdb_parser.set_defaults(cmd=init_db)
 
     dump_parser = subparsers.add_parser('dump', help='dump database')
-    dump_parser.set_defaults(cmd=dump_db)
+    dump_parser.set_defaults(cmd=dump_table)
     dump_parser.add_argument('tbl', help='table name')
+
+    dump_parser = subparsers.add_parser('dumpall', help='dump database')
+    dump_parser.set_defaults(cmd=dump_all)
+    dump_parser.add_argument('outfolder', nargs='?', help='table name', default='dbdumps')
 
     return parser
 
