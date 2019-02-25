@@ -42,6 +42,9 @@ run-pg:
 stop-pg:
 	docker stop $(DB_CONTAINER_NAME)
 
-.PHONY:
+.PHONY: push pull
 push:
 	docker push ${IMAGE_LABEL}
+
+pull:
+	docker pull ${IMAGE_LABEL}
