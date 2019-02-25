@@ -37,10 +37,10 @@ class GridView(AbsAttrPassThrough):
             return 'NA'
         else:
             val = self.grid.ruler[pos]
-            if val >= 4.0:
-                return '%.2f' % val
-            else:
+            if 'ETF' in self.name:
                 return '%.3f' % val
+            else:
+                return '%.2f' % val
 
     @property
     def next_sell(self):
