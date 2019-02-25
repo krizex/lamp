@@ -27,12 +27,19 @@ class TrendView(AbsAttrPassThrough):
         return self.trend
 
     @property
+    def prec(self):
+        if 'ETF' in self.name:
+            return 3
+        else:
+            return 2
+
+    @property
     def next_buy(self):
-        return '%.2f' % self.trend.next_buy()
+        return '%.*f' % (self.prec, self.trend.next_buy())
 
     @property
     def flush_price(self):
-        return '%.2f' % self.trend.flush_price()
+        return '%.*f' % (self.prec, self.trend.flush_price())
 
     @property
     def trend_high(self):
