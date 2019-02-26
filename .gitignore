@@ -111,12 +111,10 @@ venv.bak/
 dmypy.json
 
 # my
-src/data/
 src/app.pid
 src/dbdumps
 nohup.out
 running/logs/*
-src/env.cfg
 src/datasource/
 src/datasource
 _build/
