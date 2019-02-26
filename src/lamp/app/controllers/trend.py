@@ -30,14 +30,6 @@ class TrendUnit(ObjectBaseUnit):
 
         return (self.cur_price - flush_price) / 1.0 / (highest - flush_price)
 
-    def __cmp__(self, other):
-        if self.own > other.own:
-            return -1
-        elif self.own < other.own:
-            return 1
-        else:
-            return cmp(self.code, other.code)
-
 
 def get_trends():
     records = Trend.query.all()
