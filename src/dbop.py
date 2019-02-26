@@ -30,7 +30,10 @@ def refresh_data(args):
         for tbl in ALL_TABLES.iterkeys():
             tbl_cls = cli.tbl_name2cls(tbl)
             print 'Refreshing %s...' % tbl
-            cli.update_from_file(os.path.join(data_folder, tbl+'.json'), tbl_cls)
+            try:
+                cli.update_from_file(os.path.join(data_folder, tbl+'.json'), tbl_cls)
+            except:
+                print 'Error: cannot refresh %s' % tbl
 
 
 def init_db(args):
