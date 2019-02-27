@@ -1,0 +1,104 @@
+<center><h3><span class="badge badge-info center-block">GRID</span></h3></center>
+
+<table data-toggle="table" class="table">
+    <thead>
+        <TR>
+            <TH>CODE/NAME</TH>
+            <TH>SIZE/WIDTH</TH>
+            <TH>UNIT</TH>
+            <TH>SELL</TH>
+            <TH>OP-TREND</TH>
+            <TH>BUY</TH>
+            <TH>CUR-HOLD</TH>
+            <TH>CUR-PRICE</TH>
+            <TH>TREND</TH>
+            <TH>NOTE</TH>
+        </TR>
+    </thead>
+    <tbody>
+        {% for r in grid_recs %}
+        <TR>
+            <!-- CODE -->
+            <TD rowspan="2">
+                {% if r.own != 1 %}
+                #
+                {% endif %}
+                <a href="https://xueqiu.com/k?q={{r.code}}#/stock">
+                    {{r.code}} <BR> {{r.name}}
+                </a>
+            </TD>
+            <!-- SIZE -->
+            <TD rowspan="2">
+                {{r.size}}
+                <BR>
+                {{'%.2f%%' % (r.width * 100)}}
+            </TD>
+            <!-- WIDTH -->
+            <TD rowspan="2">{{r.unit}}</TD>
+            <!-- SELL -->
+            <TD class="table-active">{{r.next_sell.0}}</TD>
+            <!-- next op distance -->
+            <TD>
+                {% if r.next_op_distance.0 > 0 %}
+                <input type="range" class="slider"
+                       min="0" max="100" step="1" value={{(r.next_op_distance.0 * 100) | int}} disabled="true">
+                {% else %}
+                NA
+                {% endif %}
+            </TD>
+            <!-- BUY -->
+            <TD class="table-active">{{r.next_buy.0}}</TD>
+            <!-- hold -->
+            <TD class="table-active"> {{r.hold_count.0}} </TD>
+            <!-- cur price -->
+            <TD rowspan="2">
+                {{r.cur_price}}
+                <BR>
+                <p class={% if r.cur_p_change >= 0.0 %} "text-success" {% else %} "text-danger" {% endif %}>
+                    {{'%+.2f%%' % (r.cur_p_change * 100)}}
+                </p>
+                {% if r.is_fund %}
+                <p class="text-white
+                          {% if r.premium >= 0 %}
+                          bg-info
+                          {% else %}
+                          bg-warning
+                          {% endif%}
+                          ">
+                {{r.ass_date}}
+                <BR>
+                {{'%+.2f%%' % (r.premium * 100)}}
+                </p>
+                {% endif %}
+            </TD>
+            <!-- trend -->
+            <TD rowspan="2">
+                {{r.trend_low}} / {{r.trend_high}}
+                <BR>
+                <div class="progress">
+                    <div class="progress-bar {{r.trend_info.0}}" role="progressbar" style="width: {{r.trend_info.1 * 100}}%" aria-valuenow="{{r.trend_info.1 * 100}}" aria-valuemin="0" aria-valuemax="100"></div>
+
+            </TD>
+            <!-- note -->
+            <TD rowspan="2">{{r.note}}</TD>
+        </TR>
+        <TR>
+            <!-- SELL -->
+            <TD>{{r.next_sell.1}}</TD>
+            <!-- next op distance -->
+            <TD>
+                {% if r.next_op_distance.1 > 0 %}
+                <input type="range" class="slider"
+                       min="0" max="100" step="1" value={{(r.next_op_distance.1 * 100) | int}} disabled="true">
+                {% else %}
+                NA
+                {% endif %}
+            </TD>
+            <!-- BUY -->
+            <TD>{{r.next_buy.1}}</TD>
+            <!-- hold -->
+            <TD> {{r.hold_count.1}} </TD>
+        </TR>
+        {% endfor %}
+    </tbody>
+</table>

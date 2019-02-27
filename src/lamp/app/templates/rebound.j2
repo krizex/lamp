@@ -1,0 +1,52 @@
+<center><h3><span class="badge badge-info center-block">REBOUND</span></h3></center>
+<table data-toggle="table" class="table">
+    <thead>
+        <TR>
+            <TH>CODE/NAME</TH>
+            <TH>DAYS</TH>
+            <TH>RATIO</TH>
+            <TH>LOWEST</TH>
+            <TH>OP-TREND</TH>
+            <TH>REBOUND</TH>
+            <TH>CUR-PRICE</TH>
+            <TH>NOTE</TH>
+        </TR>
+    </thead>
+    <tbody>
+        {% for r in rebound_recs %}
+        <TR>
+            <!-- CODE -->
+            <TD>
+                <a href="https://xueqiu.com/k?q={{r.code}}#/stock">
+                    {{r.code}} <BR> {{r.name}}
+                </a>
+            </TD>
+            <!-- DAYS -->
+            <TD>{{r.days}}</TD>
+            <!-- RATIO -->
+            <TD>
+                {{'%.2f%%' % (r.ratio * 100)}}
+            </TD>
+            <!-- LOWEST -->
+            <TD class="table-active">{{r.lowest_price}}</TD>
+            <!-- OP-TREND -->
+            <TD>
+            <input type="range" class="slider"
+                   min="0" max="100" step="1" value={{(r.trend_position_of_cur_price * 100) | int}} disabled="true">
+            </TD>
+            <!-- REBOUND -->
+            <TD class="table-active">{{r.rebound_price}}</TD>
+            <!-- CUR-PRICE -->
+            <TD>
+                {{r.cur_price}}
+                <BR>
+                <p class={% if r.cur_p_change >= 0.0 %} "text-success" {% else %} "text-danger" {% endif %}>
+                    {{'%+.2f%%' % (r.cur_p_change * 100)}}
+                </p>
+            </TD>
+            <!-- note -->
+            <TD>{{r.note}}</TD>
+        </TR>
+        {% endfor %}
+    </tbody>
+</table>

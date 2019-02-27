@@ -1,0 +1,68 @@
+<center><h3><span class="badge badge-info center-block">TREND</span></h3></center>
+<table data-toggle="table" class="table">
+    <thead>
+        <TR>
+            <TH>CODE/NAME</TH>
+            <TH>RATIO/UNIT</TH>
+            <TH>NEXT-BUY</TH>
+            <TH>CUR-HOLD</TH>
+            <TH>FLUSH-PRICE</TH>
+            <TH>OP-TREND</TH>
+            <TH>HIGHEST-PRICE</TH>
+            <TH>CUR-PRICE</TH>
+            <TH>TREND</TH>
+            <TH>NOTE</TH>
+        </TR>
+    </thead>
+    <tbody>
+        {% for r in trend_recs %}
+        <TR>
+            <!-- CODE -->
+            <TD>
+                {% if r.own != 1 %}
+                #
+                {% endif %}
+                <a href="https://xueqiu.com/k?q={{r.code}}#/stock">
+                    {{r.code}} <BR> {{r.name}}
+                </a>
+            </TD>
+            <!-- RATIO/UNIT -->
+            <TD>
+                {{'%.2f%%' % (r.ratio * 100)}}
+                <BR>
+                {{r.unit}}
+            </TD>
+            <!-- NEXT-BUY -->
+            <TD>{{r.next_buy}}</TD>
+            <!-- CUR-HOLD -->
+            <TD> {{r.cur_hold}} </TD>
+            <!-- FLUSH-PRICE -->
+            <TD class="table-active"> {{r.flush_price}} </TD>
+            <!-- OP-TREND -->
+            <TD>
+            <input type="range" class="slider"
+                   min="0" max="100" step="1" value={{(r.trend_position_of_cur_price * 100) | int}} disabled="true">
+            </TD>
+            <!-- HIGHEST-PRICE -->
+            <TD class="table-active">{{r.trend_high}}</TD>
+            <!-- CUR-PRICE -->
+            <TD>
+                {{r.cur_price}}
+                <BR>
+                <p class={% if r.cur_p_change >= 0.0 %} "text-success" {% else %} "text-danger" {% endif %}>
+                    {{'%+.2f%%' % (r.cur_p_change * 100)}}
+                </p>
+            </TD>
+            <!-- trend -->
+            <TD>
+                {{r.trend_low}} / {{r.trend_high}}
+                <BR>
+                <div class="progress">
+                    <div class="progress-bar {{r.trend_info.0}}" role="progressbar" style="width: {{r.trend_info.1 * 100}}%" aria-valuenow="{{r.trend_info.1 * 100}}" aria-valuemin="0" aria-valuemax="100"></div>
+            </TD>
+            <!-- note -->
+            <TD>{{r.note}}</TD>
+        </TR>
+        {% endfor %}
+    </tbody>
+</table>

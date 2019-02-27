@@ -1,0 +1,14 @@
+{% extends "base.j2" %}
+{% block title %}
+Wave
+{% endblock %}
+
+{% block style %}
+  {% include "style.j2" %}
+{% endblock %}
+
+{% block content %}
+{% include "grid.j2" %}
+{% include "trend.j2" %}
+{% include "rebound.j2" %}
+{% endblock %}
