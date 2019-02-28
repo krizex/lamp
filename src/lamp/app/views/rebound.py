@@ -20,14 +20,6 @@ class ReboundView(BaseView):
     def __init__(self, rebound):
         self.rebound = rebound
 
-    # @property
-    # def last_n_days_date(self):
-    #     return [1]
-    #     ret = self.get_last_n_days_date(11)
-    #     log.debug('last_n_days_date')
-    #     log.debug(ret)
-    #     return ret
-
     @property
     def _datasource(self):
         return self.rebound
