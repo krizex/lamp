@@ -5,7 +5,7 @@ from lamp import config
 from lamp.log import log
 
 app = Flask(__name__)
-# app.jinja_env.undefined = StrictUndefined
+app.jinja_env.undefined = StrictUndefined
 
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///%s' % config.database
