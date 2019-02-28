@@ -59,6 +59,39 @@
                 <BR>
                 <div class="progress">
                     <div class="progress-bar {{r.trend_info.0}}" role="progressbar" style="width: {{r.trend_info.1 * 100}}%" aria-valuenow="{{r.trend_info.1 * 100}}" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <BR>
+              <canvas id="trend_{{r.code}}" width="200" height="200"></canvas>
+<script>
+ var ctx = document.getElementById("trend_{{r.code}}");
+ var myChart = new Chart(ctx, {
+     type: 'line',
+     data: {
+         labels: {{r.last_n_days_date | safe}},
+         datasets: [{
+             data: {{r.last_n_days_price | safe}},
+         }]
+     },
+     options: {
+         responsive: false,
+         legend: {
+             display: false
+         },
+         scales: {
+             xAxes: [{
+                 ticks: {
+                     display: false //this will remove only the label
+                 }
+             }],
+             yAxes: [{
+                 ticks: {
+                     display: false //this will remove only the label
+                 }
+             }]
+         }
+     }
+ });
+</script>
             </TD>
             <!-- note -->
             <TD>{{r.note}}</TD>

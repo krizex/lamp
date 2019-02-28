@@ -3,10 +3,10 @@
 from flask import render_template
 
 from lamp.app.controllers.trend import get_trends
-from lamp.utils.absattr import AbsAttrPassThrough
+from .base import BaseView
 
 
-class TrendView(AbsAttrPassThrough):
+class TrendView(BaseView):
     _PASS_THROUGH_ATTRS = [
         'code',
         'name',
