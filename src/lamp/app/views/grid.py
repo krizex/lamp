@@ -3,10 +3,10 @@
 from flask import render_template
 
 from lamp.app.controllers.grid import get_grids
-from lamp.utils.absattr import AbsAttrPassThrough
+from .base import BaseView
 
 
-class GridView(AbsAttrPassThrough):
+class GridView(BaseView):
     _PASS_THROUGH_ATTRS = [
         'code',
         'name',
