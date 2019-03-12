@@ -16,12 +16,10 @@
     </thead>
     <tbody>
         {% for r in trend_recs %}
-        <TR>
+          <TR>
             <!-- CODE -->
-            <TD>
-                {% if r.own != 1 %}
-                #
-                {% endif %}
+            <TD
+                {% if r.own != 1 %} class="table-active" {% endif %}>
                 <a href="https://xueqiu.com/k?q={{r.code}}#/stock">
                     {{r.code}} <BR> {{r.name}}
                 </a>

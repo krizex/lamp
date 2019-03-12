@@ -17,12 +17,10 @@
     </thead>
     <tbody>
         {% for r in grid_recs %}
-        <TR>
+          <TR>
             <!-- CODE -->
-            <TD rowspan="2">
-                {% if r.own != 1 %}
-                #
-                {% endif %}
+            <TD rowspan="2"
+                {% if r.own != 1 %} class="table-active" {% endif %}>
                 <a href="https://xueqiu.com/k?q={{r.code}}#/stock">
                     {{r.code}} <BR> {{r.name}}
                 </a>
