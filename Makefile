@@ -3,6 +3,7 @@ CONTAINER_PORT := 8001
 HOST_DEBUG_PORT := 8000
 CUR_DIR := $(shell pwd)
 DB_CONTAINER_NAME := pg
+APP_CONTAINER_NAME := lamp
 
 .PHONY: build
 build:
@@ -21,10 +22,13 @@ debug:
 	-v $(CUR_DIR)/src:/app \
 	$(IMAGE_LABEL):latest /bin/bash
 
-.PHONY: run stop restart
+.PHONY: run stop restart attach
 
 run:
 	docker-compose up -d
+
+attach:
+	docker exec -it $(APP_CONTAINER_NAME) /bin/bash
 
 stop:
 	docker-compose down
