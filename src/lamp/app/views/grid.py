@@ -96,6 +96,10 @@ class GridView(BaseView):
         return premium
         # return '%+.2f%%' % (premium * 100,)
 
+    @property
+    def total_invest(self):
+        return int(self.grid.calc_total_invest())
+
 
 def get_grids_data():
     recs = get_grids()

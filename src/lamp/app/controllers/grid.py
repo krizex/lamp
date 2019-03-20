@@ -78,6 +78,9 @@ class GridUnit(ObjectBaseUnit):
         ass_val = self.fund.ass_val
         return (cur_val - ass_val) / 1.0 / ass_val
 
+    def calc_total_invest(self):
+        return sum(self.ruler[:-1]) * self.unit
+
 
 def get_grids():
     records = Grid.query.all()
