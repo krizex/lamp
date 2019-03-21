@@ -32,8 +32,9 @@
             <TD class="table-active">{{r.lowest_price}}</TD>
             <!-- OP-TREND -->
             <TD>
-              <input type="range" class="slider"
-                     min="0" max="100" step="1" value={{(r.trend_position_of_cur_price * 100) | int}} disabled="true">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: {{r.trend_position_of_cur_price * 100}}%" aria-valuenow="{{r.trend_position_of_cur_price * 100}}" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
             </TD>
             <!-- REBOUND -->
             <TD class="table-active">{{r.rebound_price}}</TD>
