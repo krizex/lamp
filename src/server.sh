@@ -14,7 +14,7 @@ start ()
 {
     export FLASK_DEBUG=0
     echo "starting server"
-    exec gunicorn -p app.pid -w 2 -b $HOST:$PORT --timeout 60 lamp.app.run:app
+    exec gunicorn -p app.pid -w 2 -b $HOST:$PORT --timeout 60 lamp.app:app
 }
 
 stop ()
