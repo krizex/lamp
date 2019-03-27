@@ -9,8 +9,7 @@
             <TH>OP-TREND</TH>
             <TH>REBOUND</TH>
             <TH>CUR-PRICE</TH>
-            <TH>TREND</TH>
-            <TH>NOTE</TH>
+            <TH>TREND/NOTE</TH>
         </TR>
     </thead>
     <tbody>
@@ -79,9 +78,9 @@
                     }
                 });
               </script>
+              <BR>
+              {{r.note}}
             </TD>
-            <!-- note -->
-            <TD>{{r.note}}</TD>
         </TR>
         {% endfor %}
     </tbody>
