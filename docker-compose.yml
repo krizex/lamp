@@ -8,10 +8,8 @@ services:
     volumes:
       - ${PWD}/nginx_conf:/etc/nginx
       - ${PWD}/src/lamp/app/static:/var/www/static
-    links:
-      - lamp
-    depends_on:
-      - lamp
+    networks:
+      - frontend
 
   lamp:
     image: krizex/lamp:latest
@@ -20,10 +18,9 @@ services:
       - ${PWD}/data:/persist:rw
       - /var/lamp/log:/var/log:rw
     env_file: database.conf
-    links:
-      - pg
-    depends_on:
-      - pg
+    networks:
+      - frontend
+      - backend
 
   pg:
     image: postgres:10-alpine
@@ -31,5 +28,13 @@ services:
     volumes:
       - /var/lamp/db:/var/lib/postgresql/data:rw
     env_file: database.conf
+    networks:
+      - backend
 
 
+networks:
+  frontend:
+    driver: bridge
+
+  backend:
+    driver: bridge
