@@ -11,6 +11,6 @@ RUN rm -f requirements.txt
 COPY src/ /app/
 COPY ${persist} /persist/
 WORKDIR /app
-EXPOSE 8001
+EXPOSE 8000
 
 CMD ./server.sh start
