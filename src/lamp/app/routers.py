@@ -6,15 +6,27 @@ from lamp.app.views.rebound import get_rebounds_data
 from lamp.db.helpers import cli
 from lamp.log import log
 from flask import render_template
+from multiprocessing.pool import ThreadPool
 
 
 @app.route('/')
 @app.route('/wave/')
 def wave():
-    grid_recs = get_grids_data()
-    trend_recs = get_trends_data()
-    rebound_recs = get_rebounds_data()
-    return render_template('wave_page.j2', grid_recs=grid_recs, trend_recs=trend_recs, rebound_recs=rebound_recs)
+    def apply_f(f, name):
+        with app.app_context():
+            recs = f()
+            return name, recs
+
+    funcs = {
+        'grid_recs': get_grids_data,
+        'trend_recs': get_trends_data,
+        'rebound_recs': get_rebounds_data,
+    }
+    pool = ThreadPool(processes=len(funcs))
+    async_results = [pool.apply_async(apply_f, (f, name)) for name, f in funcs.iteritems()]
+    recs_map = {name: result for name, result in [ret.get() for ret in async_results]}
+
+    return render_template('wave_page.j2', **recs_map)
 
 
 @app.route('/grid/')
