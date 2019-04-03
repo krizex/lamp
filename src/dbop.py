@@ -8,6 +8,7 @@ from lamp.db.helpers import cli
 from lamp.model import ALL_TABLES
 from lamp import config
 import json
+import traceback
 
 def confirm(cfm_str):
     """
@@ -34,6 +35,7 @@ def refresh_data(args):
                 cli.update_from_file(os.path.join(data_folder, tbl+'.json'), tbl_cls)
             except:
                 print 'Error: cannot refresh %s' % tbl
+                traceback.print_exc()
 
 
 def init_db(args):
