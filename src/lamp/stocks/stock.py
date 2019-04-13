@@ -1,4 +1,6 @@
 import tushare as ts
+import numpy as np
+import talib
 from lamp.utils.util import ndays_before_today
 from lamp.log import log
 from lamp import config
@@ -23,11 +25,15 @@ class Stock(object):
 
     def get_k_data(self):
         try:
-            return ts.get_k_data(self.code, retry_count=10)
+            df = ts.get_k_data(self.code, retry_count=10)
+            close = np.array([float(x) for x in df['close']])
+            df['MA40'] = talib.SMA(close, timeperiod=40)
+            return df
         except Exception as e:
             log.exception('ts.get_k_data failed')
-            cons = ts.get_apis()
-            return ts.bar(self.code, conn=cons, retry_count=10)
+            # cons = ts.get_apis()
+            # return ts.bar(self.code, conn=cons, retry_count=10)
+            raise
 
     def get_last_n_day_info(self, n):
         day = self.df.shape[0] - 1 - n
@@ -43,6 +49,9 @@ class Stock(object):
 
     def get_last_day_date(self):
         return self.get_last_n_day_info(0)['date']
+
+    def get_last_day_ma40(self):
+        return self.get_last_n_day_info(0)['MA40']
 
     def get_highest_in_n_days(self, n):
         return self.df[-n:]['close'].max()

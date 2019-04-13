@@ -4,12 +4,12 @@
         <TR>
             <TH>CODE/NAME</TH>
             <TH>RATIO/UNIT</TH>
-            <TH>NEXT-BUY</TH>
             <TH>CUR-HOLD</TH>
-            <TH>FLUSH-PRICE</TH>
+            <TH>CUR-FLUSH</TH>
             <TH>OP-TREND</TH>
-            <TH>HIGHEST-PRICE</TH>
+            <TH>NEXT-BUY</TH>
             <TH>CUR-PRICE</TH>
+            <TH>STOP-BENEFIT</TH>
             <TH>TREND/NOTE</TH>
         </TR>
     </thead>
@@ -29,19 +29,25 @@
                 <BR>
                 {{r.unit}}
             </TD>
-            <!-- NEXT-BUY -->
-            <TD>{{r.next_buy}}</TD>
             <!-- CUR-HOLD -->
             <TD> {{r.cur_hold}} </TD>
-            <!-- FLUSH-PRICE -->
-            <TD class="table-active"> {{r.flush_price}} </TD>
+            <!-- CUR-FLUSH -->
+            <TD class="table-active">
+              {{r.cur_flush_price}}
+              <BR>
+              {{r.cur_flush_cnt}}
+            </TD>
             <!-- OP-TREND -->
             <TD>
             <input type="range" class="slider"
-                   min="0" max="100" step="1" value={{(r.trend_position_of_cur_price * 100) | int}} disabled="true">
+                   min="0" max="100" step="1" value={{(r.op_position_of_cur_price * 100) | int}} disabled="true">
             </TD>
-            <!-- HIGHEST-PRICE -->
-            <TD class="table-active">{{r.trend_high}}</TD>
+            <!-- NEXT-BUY -->
+            <TD class="table-active">
+              {{r.next_buy_price}}
+              <BR>
+              {{r.next_buy_cnt}}
+            </TD>
             <!-- CUR-PRICE -->
             <TD>
                 {{r.cur_price}}
@@ -50,6 +56,8 @@
                     {{'%+.2f%%' % (r.cur_p_change * 100)}}
                 </p>
             </TD>
+            {# STOP-BENEFIT #}
+            <TD>{{r.stop_benefit_price}}</TD>
             <!-- trend -->
             <TD>
                 {{r.trend_low}} / {{r.trend_high}}

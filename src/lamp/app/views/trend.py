@@ -34,12 +34,20 @@ class TrendView(BaseView):
             return 2
 
     @property
-    def next_buy(self):
-        return '%.*f' % (self.prec, self.trend.next_buy())
+    def next_buy_price(self):
+        return '%.*f' % (self.prec, self.trend.next_buy_price())
 
     @property
-    def flush_price(self):
-        return '%.*f' % (self.prec, self.trend.flush_price())
+    def next_buy_cnt(self):
+        return self.trend.next_buy_cnt()
+
+    @property
+    def cur_flush_price(self):
+        return '%.*f' % (self.prec, self.trend.cur_flush_price())
+
+    @property
+    def cur_flush_cnt(self):
+        return self.trend.cur_flush_cnt()
 
     @property
     def trend_high(self):
@@ -66,11 +74,15 @@ class TrendView(BaseView):
 
     @property
     def cur_hold(self):
-        return self.trend.cur_hold * self.unit
+        return '%d%%' % (int(self.trend.calc_cur_hold() * 100))
 
     @property
-    def trend_position_of_cur_price(self):
-        return self.trend.calc_trend_position_of_cur_price()
+    def op_position_of_cur_price(self):
+        return self.trend. calc_op_position_of_cur_price()
+
+    @property
+    def stop_benefit_price(self):
+        return '%.*f' % (self.prec, self.trend.stop_benefit_price())
 
 
 def get_trends_data():

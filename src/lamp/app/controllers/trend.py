@@ -16,19 +16,50 @@ class TrendUnit(ObjectBaseUnit):
         self.cur_hold = trend.cur_hold
         self.trend_up_days_cnt = 22
         self.trend_down_days_cnt = 11
+        self.stop_loss_rate = 0.1
+        # down below MA40
+        self.stop_benefit_down_rate = 0.03
 
-    def next_buy(self):
+    def weight_on_ruler(self, hold_cnt):
+        ruler = [2, 3, 3, 2]
+        if hold_cnt < len(ruler):
+            return ruler[hold_cnt]
+        else:
+            return 1
+
+    def next_buy_price(self):
         return self.start_price * ((1 + self.ratio) ** self.cur_hold)
 
-    def flush_price(self):
-        highest = self.trend_high_ndays(self.trend_up_days_cnt)
-        return highest * 1.0 * ((1 - self.ratio) ** 2)
+    def next_buy_cnt(self):
+        return self.weight_on_ruler(self.cur_hold) / 1 * self.unit
 
-    def calc_trend_position_of_cur_price(self):
-        highest = self.trend_high_ndays(self.trend_up_days_cnt)
-        flush_price = self.flush_price()
+    def cur_flush_price(self):
+        buy_price = self.next_buy_price() / (1 + self.ratio)
+        return buy_price * (1 - self.stop_loss_rate)
 
-        return (self.cur_price - flush_price) / 1.0 / (highest - flush_price)
+    def cur_flush_cnt(self):
+        if self.cur_hold <= 0:
+            return 0
+        else:
+            return self.weight_on_ruler(self.cur_hold - 1) / 1 * self.unit
+
+    def stop_benefit_price(self):
+        return self.cur_price_ma40 * (1 - self.stop_benefit_down_rate)
+
+    def calc_op_position_of_cur_price(self):
+        low = self.cur_flush_price()
+        high = self.next_buy_price()
+        return (self.cur_price - low) / 1.0 / (high - low)
+
+    def calc_cur_hold(self):
+        if self.cur_hold <= 0:
+            return 0
+        else:
+            total = 0.0
+            for i in range(self.cur_hold):
+                total += self.weight_on_ruler(i)
+            return total / 10.0
+
 
 
 def get_trends():

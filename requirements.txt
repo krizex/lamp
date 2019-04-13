@@ -9,3 +9,4 @@ enum==0.4.7
 tushare==1.2.21
 bs4==0.0.1
 psycopg2-binary==2.7.7
+TA-Lib==0.4.17

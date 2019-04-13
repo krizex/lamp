@@ -17,6 +17,7 @@ class ObjectBaseUnit(object):
                 self.name = self.stock.name
             self.cur_price = self.stock.get_last_day_close()
             self.cur_p_change = self.stock.get_last_day_p_change()
+            self.cur_price_ma40 = self.stock.get_last_day_ma40()
         except Exception as e:
             log.exception('Cannot get info for %s' % self.code)
 
