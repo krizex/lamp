@@ -18,7 +18,7 @@
           <TR>
             <!-- CODE -->
             <TD
-                {% if r.own != 1 %} class="table-active" {% endif %}>
+                {% if r.own < 1 %} class="table-active" {% endif %}>
                 <a href="https://xueqiu.com/k?q={{r.code}}#/stock">
                     {{r.code}} <BR> {{r.name}}
                 </a>
