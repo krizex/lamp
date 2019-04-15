@@ -57,7 +57,11 @@
                 </p>
             </TD>
             {# STOP-BENEFIT #}
-            <TD>{{r.stop_benefit_price}}</TD>
+            <TD>
+                <p class={% if r.cur_price >= r.stop_benefit_price %} "text-dark" {% else %} "text-danger" {% endif %}>
+              {{r.stop_benefit_price}}
+                  </p>
+            </TD>
             <!-- trend -->
             <TD>
                 {{r.trend_low}} / {{r.trend_high}}
