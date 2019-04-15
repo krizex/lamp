@@ -31,9 +31,9 @@ class ObjectBaseUnit(object):
         return self.code == other.code and self.own == other.own
 
     def __lt__(self, other):
-        if self.own < other.own:
+        if self.own > other.own:
             return True
-        elif self.own > other.own:
+        elif self.own < other.own:
             return False
         else:
             return self.code < other.code
