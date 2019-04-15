@@ -82,7 +82,7 @@ class TrendView(BaseView):
 
     @property
     def stop_benefit_price(self):
-        return '%.*f' % (self.prec, self.trend.stop_benefit_price())
+        return self.trend.stop_benefit_price()
 
 
 def get_trends_data():
