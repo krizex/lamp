@@ -66,20 +66,6 @@ class CandidateUnit(object):
     def cur_benefit(self):
         return (self.cur_price - self.start_price) / self.start_price
 
-    def __cmp__(self, other):
-        if self.own > other.own:
-            return -1
-        elif self.own < other.own:
-            return 1
-        # now self and other .own equals
-        elif self.own == 1:
-            # TODO reconsider the order
-            return cmp(self.quite_distance, other.quite_distance)
-        elif self.own == 0:
-            return cmp(abs(self.enter_distance), abs(other.enter_distance))
-        else:
-            return cmp(self.cur_benefit, other.cur_benefit)
-
     def trend_start_ndays(self, n):
         return self.stock.get_highest_in_n_days(n)
 

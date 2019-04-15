@@ -23,7 +23,7 @@ def wave():
         'rebound_recs': get_rebounds_data,
     }
     pool = ThreadPool(processes=len(funcs))
-    async_results = [pool.apply_async(apply_f, (f, name)) for name, f in funcs.iteritems()]
+    async_results = [pool.apply_async(apply_f, (f, name)) for name, f in funcs.items()]
     recs_map = {name: result for name, result in [ret.get() for ret in async_results]}
 
     return render_template('wave_page.j2', **recs_map)

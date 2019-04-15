@@ -7,9 +7,7 @@ from lamp.utils.absattr import AbsAttrPassThrough
 from lamp.app.controllers.candidate import get_sorted_candidates
 
 
-class AbstractCandidateView(object):
-    __metaclass__ = ABCMeta
-
+class AbstractCandidateView(object, metaclass=ABCMeta):
     @abstractproperty
     def own_type(self):
         pass

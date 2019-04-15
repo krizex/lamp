@@ -18,29 +18,29 @@ def confirm(cfm_str):
     """
     answer = ""
     while answer not in ["y", "n"]:
-        answer = raw_input(cfm_str + ' [Y/N]').lower()
+        answer = input(cfm_str + ' [Y/N]').lower()
     return answer == "y"
 
 def refresh_data(args):
     if not confirm('OK refresh data?'):
-        print 'Canceled'
+        print('Canceled')
         exit(0)
 
     with app.app_context():
         data_folder = config.data_node
-        for tbl in ALL_TABLES.iterkeys():
+        for tbl in ALL_TABLES.keys():
             tbl_cls = cli.tbl_name2cls(tbl)
-            print 'Refreshing %s...' % tbl
+            print('Refreshing %s...' % tbl)
             try:
                 cli.update_from_file(os.path.join(data_folder, tbl+'.json'), tbl_cls)
             except:
-                print 'Error: cannot refresh %s' % tbl
+                print('Error: cannot refresh %s' % tbl)
                 traceback.print_exc()
 
 
 def init_db(args):
     if not confirm('OK to reset the database?'):
-        print 'Canceled'
+        print('Canceled')
         exit(0)
 
     from lamp.app import db
@@ -52,7 +52,7 @@ def init_db(args):
 def dump_table(args):
     with app.app_context():
         dmp = cli.dump_table(args.tbl)
-        print json.dumps(dmp, indent=4)
+        print(json.dumps(dmp, indent=4))
 
 def dump_all(args):
     outd = args.outfolder
@@ -60,10 +60,10 @@ def dump_all(args):
         os.makedirs(outd)
 
     with app.app_context():
-        for tbl in ALL_TABLES.iterkeys():
+        for tbl in ALL_TABLES.keys():
             dmp = cli.dump_table(tbl)
             outf = os.path.join(outd, tbl + '.json')
-            print 'dumping %s' % outf
+            print('dumping %s' % outf)
             with open(outf, 'w') as f:
                 json.dump(dmp, f, indent=4)
 

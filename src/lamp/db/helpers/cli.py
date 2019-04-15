@@ -9,7 +9,7 @@ from lamp.model import ALL_TABLES
 def list_candidates():
     recs = Candidate.query.all()
     for r in recs:
-        print r
+        print(r)
 
 
 def get_values(d, *keys):

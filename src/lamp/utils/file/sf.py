@@ -42,7 +42,7 @@ def test_main():
     sf.exclusive_create(foo)
     with sf.open_read() as f:
         data = f.read()
-        print data
+        print(data)
 
 if __name__ == '__main__':
     test_main()

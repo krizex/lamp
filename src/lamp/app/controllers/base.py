@@ -27,10 +27,13 @@ class ObjectBaseUnit(object):
     def trend_low_ndays(self, n):
         return self.stock.get_lowest_in_n_days(n)
 
-    def __cmp__(self, other):
-        if self.own > other.own:
-            return -1
-        elif self.own < other.own:
-            return 1
+    def __eq__(self, other):
+        return self.code == other.code and self.own == other.own
+
+    def __lt__(self, other):
+        if self.own < other.own:
+            return True
+        elif self.own > other.own:
+            return False
         else:
-            return cmp(self.code, other.code)
+            return self.code < other.code

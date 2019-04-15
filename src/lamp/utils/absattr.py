@@ -1,9 +1,7 @@
 from abc import ABCMeta, abstractproperty, abstractmethod
 
 
-class AbsAttrPassThrough(object):
-    __metaclass__ = ABCMeta
-
+class AbsAttrPassThrough(object, metaclass=ABCMeta):
     _PASS_THROUGH_ATTRS = []
 
     def __getattr__(self, attr):
