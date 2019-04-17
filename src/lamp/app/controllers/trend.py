@@ -31,7 +31,7 @@ class TrendUnit(ObjectBaseUnit):
         return self.start_price * ((1 + self.ratio) ** self.cur_hold)
 
     def next_buy_cnt(self):
-        return self.weight_on_ruler(self.cur_hold) / 1 * self.unit
+        return self.weight_on_ruler(self.cur_hold) * self.unit
 
     def cur_flush_price(self):
         buy_price = self.next_buy_price() / (1 + self.ratio)
@@ -41,7 +41,7 @@ class TrendUnit(ObjectBaseUnit):
         if self.cur_hold <= 0:
             return 0
         else:
-            return self.weight_on_ruler(self.cur_hold - 1) / 1 * self.unit
+            return self.weight_on_ruler(self.cur_hold - 1) * self.unit
 
     def stop_benefit_price(self):
         return self.cur_price_ma40 * (1 - self.stop_benefit_down_rate)
