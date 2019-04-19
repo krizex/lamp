@@ -1,4 +1,5 @@
 import datetime
+from lamp.log import log
 
 
 def ndays_before_today(n):
@@ -26,4 +27,15 @@ def parallel_apply(recs, f):
     rets = pool.map(f, recs)
     pool.close()
     pool.join()
-    return rets
+    # reject the unit which processed failed
+    return [x for x in rets if x is not None]
+
+def constructor_of(unit_cls):
+    def builder(code):
+        try:
+            return unit_cls(code)
+        except:
+            log.exception('Fail to process %s', code)
+            return None
+
+    return builder

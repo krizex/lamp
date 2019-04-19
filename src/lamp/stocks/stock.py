@@ -31,8 +31,9 @@ class Stock(object):
             return df
         except Exception as e:
             log.exception('ts.get_k_data for %s failed', self.code)
-            cons = ts.get_apis()
-            return ts.bar(self.code, conn=cons, retry_count=10)
+            # cons = ts.get_apis()
+            # return ts.bar(self.code, conn=cons, retry_count=10)
+            raise
 
     def get_last_n_day_info(self, n):
         day = self.df.shape[0] - 1 - n

@@ -1,7 +1,7 @@
 from lamp.stocks.fund import Fund
 from lamp.model import Grid
 from lamp.log import log
-from lamp.utils.util import calc_ruler, parallel_apply
+from lamp.utils.util import calc_ruler, parallel_apply, constructor_of
 from lamp.app.controllers.base import ObjectBaseUnit
 from abc import ABCMeta, abstractproperty, abstractmethod
 import traceback
@@ -85,7 +85,7 @@ class GridUnit(ObjectBaseUnit):
 def get_grids():
     records = Grid.query.all()
     def build(x):
-        return GridUnit(x)
+        return constructor_of(GridUnit)(x)
 
     records = parallel_apply(records, build)
     records = sorted(records)

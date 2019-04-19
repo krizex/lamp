@@ -1,6 +1,6 @@
 from lamp.model import Rebound
 from lamp.log import log
-from lamp.utils.util import parallel_apply
+from lamp.utils.util import parallel_apply, constructor_of
 from lamp.app.controllers.base import ObjectBaseUnit
 import traceback
 
@@ -27,7 +27,7 @@ class ReboundUnit(ObjectBaseUnit):
 def get_rebounds():
     records = Rebound.query.all()
     def build(x):
-        return ReboundUnit(x)
+        return constructor_of(ReboundUnit)(x)
 
     records = parallel_apply(records, build)
     records = sorted(records)
