@@ -30,10 +30,9 @@ class Stock(object):
             df['MA40'] = talib.SMA(close, timeperiod=40)
             return df
         except Exception as e:
-            log.exception('ts.get_k_data failed')
-            # cons = ts.get_apis()
-            # return ts.bar(self.code, conn=cons, retry_count=10)
-            raise
+            log.exception('ts.get_k_data for %s failed', self.code)
+            cons = ts.get_apis()
+            return ts.bar(self.code, conn=cons, retry_count=10)
 
     def get_last_n_day_info(self, n):
         day = self.df.shape[0] - 1 - n
