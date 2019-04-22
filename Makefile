@@ -4,6 +4,7 @@ HOST_DEBUG_PORT := 8000
 CUR_DIR := $(shell pwd)
 DB_CONTAINER_NAME := pg
 APP_CONTAINER_NAME := lamp
+DB_NAME := lamp
 
 .PHONY: build
 build:
@@ -52,3 +53,14 @@ push:
 
 pull:
 	docker pull ${IMAGE_LABEL}
+
+.PHONY: backup-db restore-db
+backup-db:
+	$(eval cur_date := $(shell date +%Y-%m-%d_%H_%M_%S))
+	docker exec $(DB_CONTAINER_NAME) pg_dump -U lamp $(DB_NAME) > dump_$(DB_NAME)_$(cur_date).sql
+
+restore-db:
+	@if [ "x$(backup)" = x ]; then echo "No backup argument"; exit 1; fi
+	docker exec $(DB_CONTAINER_NAME) dropdb -U lamp $(DB_NAME)
+	docker exec $(DB_CONTAINER_NAME) createdb -U lamp $(DB_NAME)
+	cat $(backup) | docker exec -i $(DB_CONTAINER_NAME) psql -U lamp -d $(DB_NAME) -a
