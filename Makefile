@@ -57,7 +57,7 @@ pull:
 .PHONY: backup-db restore-db
 backup-db:
 	$(eval cur_date := $(shell date +%Y-%m-%d_%H_%M_%S))
-	docker exec $(DB_CONTAINER_NAME) pg_dump -U lamp $(DB_NAME) > dump_$(DB_NAME)_$(cur_date).sql
+	docker exec $(DB_CONTAINER_NAME) pg_dump -U lamp $(DB_NAME) > data/backup/dump_$(DB_NAME)_$(cur_date).sql
 
 restore-db:
 	@if [ "x$(backup)" = x ]; then echo "No backup argument"; exit 1; fi
