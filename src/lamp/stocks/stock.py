@@ -59,6 +59,10 @@ class Stock(object):
     def get_lowest_in_n_days(self, n):
         return self.df[-n:]['close'].min()
 
+    def get_highest_in_past_n_days(self, n):
+        return self.df[-n:-1]['high'].max()
+
+
 
 class __StockMgr(object):
     def __init__(self):

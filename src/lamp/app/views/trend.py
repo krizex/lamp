@@ -84,6 +84,9 @@ class TrendView(BaseView):
     def stop_benefit_price(self):
         return self.trend.stop_benefit_price()
 
+    def break_highest(self):
+        return self.trend.break_highest()
+
 
 def get_trends_data():
     recs = get_trends()

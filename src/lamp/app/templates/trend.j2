@@ -20,8 +20,11 @@
             <TD
                 {% if r.own < 1 %} class="table-active" {% endif %}>
                 <a href="https://xueqiu.com/k?q={{r.code}}#/stock">
-                    {{r.code}} <BR> {{r.name}}
+                  {{r.code}} <BR> {{r.name}}
                 </a>
+                {% if r.break_highest () %}
+                  <i class="fas fa-lightbulb"></i>
+                {% endif %}
             </TD>
             <!-- RATIO/UNIT -->
             <TD>

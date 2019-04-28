@@ -60,6 +60,10 @@ class TrendUnit(ObjectBaseUnit):
                 total += self.weight_on_ruler(i)
             return total / 10.0
 
+    def break_highest(self):
+        highest = self.stock.get_highest_in_past_n_days(self.trend_up_days_cnt)
+        return self.cur_price >= highest
+
 
 
 def get_trends():
