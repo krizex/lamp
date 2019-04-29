@@ -17,6 +17,7 @@ services:
     volumes:
       - ${PWD}/data:/persist:rw
       - /var/lamp/log:/var/log:rw
+      - /etc/localtime:/etc/localtime:ro
     env_file: database.conf
     networks:
       - frontend

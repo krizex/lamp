@@ -21,6 +21,7 @@ debug:
 	--env-file database.conf \
 	-v $(CUR_DIR)/data:/persist:rw \
 	-v $(CUR_DIR)/src:/app \
+	-v /etc/localtime:/etc/localtime:ro \
 	$(IMAGE_LABEL):latest /bin/bash
 
 .PHONY: run stop restart attach
