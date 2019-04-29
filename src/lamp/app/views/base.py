@@ -26,9 +26,9 @@ class BaseView(AbsAttrPassThrough):
 
     @property
     def last_n_days_date(self):
-        ret = self.get_last_n_days_date(11)
+        ret = self.get_last_n_days_date(22)
         return ret
 
     @property
     def last_n_days_price(self):
-        return self.get_last_n_days_price(11)
+        return self.get_last_n_days_price(22)
