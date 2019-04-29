@@ -7,6 +7,10 @@ from lamp.db.helpers import cli
 from lamp.log import log
 from flask import render_template
 from multiprocessing.pool import ThreadPool
+import requests
+from collections import namedtuple
+
+
 
 
 @app.route('/')
@@ -45,3 +49,22 @@ def trend():
 def rebound():
     rebound_recs = get_rebounds_data()
     return render_template('rebound_page.j2', rebound_recs=rebound_recs)
+
+
+Unit = namedtuple('Unit', ['code', 'name', 'benefit_rate', 'ops'])
+
+@app.route('/trend_candidate/')
+def trend_candidate():
+    resp = requests.get('http://lamp-lbt:8000')
+    js = resp.json()
+    rebound_recs = get_rebounds_data()
+    timestamp = js.get('timestamp', 'NA')
+    duration = js.get('duration', 'NA')
+    stocks = js.get('data', [])
+    recs = []
+    for stock in stocks:
+        (code, name, benefit, ops) = stock
+        rec = Unit(code, name, benefit, ops)
+        recs.append(rec)
+
+    return render_template('trend_candidate_page.j2', trend_candidate_recs=recs, timestamp=timestamp, duration=duration)

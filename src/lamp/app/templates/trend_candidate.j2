@@ -1,0 +1,69 @@
+<center><h3><span class="badge badge-info center-block">TREND-CANDIDATE</span></h3></center>
+<p>Update on: {{timestamp}} </p>
+<table data-toggle="table" class="table">
+    <thead>
+        <TR>
+            <TH>CODE/NAME</TH>
+            <TH>BENEFIT-RATE</TH>
+            <TH>OPS</TH>
+            {# <TH>TREND</TH> #}
+        </TR>
+    </thead>
+    <tbody>
+        {% for r in trend_candidate_recs %}
+          <TR>
+            <!-- CODE -->
+            <TD>
+                <a href="https://xueqiu.com/k?q={{r.code}}#/stock">
+                  {{r.code}} <BR> {{r.name}}
+                </a>
+            </TD>
+            <!-- BENEFIT-RATE -->
+            <TD>
+                {{'%.2f%%' % (r.benefit_rate * 100)}}
+            </TD>
+            <!-- OPS -->
+            <TD>
+              {% for op in r.ops %}
+                {{ op }}
+              {% endfor %}
+            </TD>
+            <!-- trend -->
+            {# <TD> #}
+            {#     <canvas id="trend_{{r.code}}" width="200" height="100"></canvas> #}
+            {#     <script> #}
+            {#       var ctx = document.getElementById("trend_{{r.code}}"); #}
+            {#       var myChart = new Chart(ctx, { #}
+            {#           type: 'line', #}
+            {#           data: { #}
+            {#               labels: {{r.last_n_days_date | safe}}, #}
+            {#               datasets: [{ #}
+            {#                   data: {{r.last_n_days_price | safe}}, #}
+            {#               }] #}
+            {#           }, #}
+            {#           options: { #}
+            {#               responsive: false, #}
+            {#               legend: { #}
+            {#                   display: false #}
+            {#               }, #}
+            {#               scales: { #}
+            {#                   xAxes: [{ #}
+            {#                       ticks: { #}
+            {#                           display: false //this will remove only the label #}
+            {#                       } #}
+            {#                   }], #}
+            {#                   yAxes: [{ #}
+            {#                       ticks: { #}
+            {#                           display: false //this will remove only the label #}
+            {#                       } #}
+            {#                   }] #}
+            {#               } #}
+            {#           } #}
+            {#       }); #}
+            {#     </script> #}
+            {#     <BR> #}
+            {# </TD> #}
+        </TR>
+        {% endfor %}
+    </tbody>
+</table>
