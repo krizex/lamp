@@ -3,6 +3,7 @@ CONTAINER_PORT := 8000
 HOST_DEBUG_PORT := 8000
 CUR_DIR := $(shell pwd)
 DB_CONTAINER_NAME := pg
+LBT_CONTAINER_NAME := lamp-lbt
 APP_CONTAINER_NAME := lamp
 DB_NAME := lamp
 
@@ -17,6 +18,7 @@ build:
 debug:
 	docker run -it --rm \
 	--link $(DB_CONTAINER_NAME) \
+	--link $(LBT_CONTAINER_NAME) \
 	-p $(HOST_DEBUG_PORT):$(CONTAINER_PORT) \
 	--env-file database.conf \
 	-v $(CUR_DIR)/data:/persist:rw \
@@ -37,7 +39,7 @@ stop:
 
 restart: stop run
 
-.PHONY: run-pg stop-pg
+.PHONY: run-pg stop-pg run-lbt stop-lbt
 run-pg:
 	docker run --rm -d \
 	--name $(DB_CONTAINER_NAME) \
@@ -47,6 +49,16 @@ run-pg:
 
 stop-pg:
 	docker stop $(DB_CONTAINER_NAME)
+
+run-lbt:
+	docker run --rm -d \
+	--name $(LBT_CONTAINER_NAME) \
+	-v /etc/localtime:/etc/localtime:ro \
+	krizex/lbt:latest
+
+stop-lbt:
+	docker stop $(LBT_CONTAINER_NAME)
+
 
 .PHONY: push pull
 push:
