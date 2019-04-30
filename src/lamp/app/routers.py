@@ -7,8 +7,7 @@ from lamp.db.helpers import cli
 from lamp.log import log
 from flask import render_template
 from multiprocessing.pool import ThreadPool
-import requests
-from collections import namedtuple
+from lamp.app.controllers.trend_candidate import get_trend_candidate
 
 
 
@@ -30,7 +29,9 @@ def wave():
     async_results = [pool.apply_async(apply_f, (f, name)) for name, f in funcs.items()]
     recs_map = {name: result for name, result in [ret.get() for ret in async_results]}
 
-    return render_template('wave_page.j2', **recs_map)
+    timestamp, duration, recs = get_trend_candidate()
+
+    return render_template('wave_page.j2', **recs_map, timestamp=timestamp, duration=duration, trend_candidate_recs=recs)
 
 
 @app.route('/grid/')
@@ -51,20 +52,8 @@ def rebound():
     return render_template('rebound_page.j2', rebound_recs=rebound_recs)
 
 
-Unit = namedtuple('Unit', ['code', 'name', 'benefit_rate', 'ops'])
 
 @app.route('/trend_candidate/')
 def trend_candidate():
-    resp = requests.get('http://lamp-lbt:8000')
-    js = resp.json()
-    rebound_recs = get_rebounds_data()
-    timestamp = js.get('timestamp', 'NA')
-    duration = js.get('duration', 'NA')
-    stocks = js.get('data', [])
-    recs = []
-    for stock in stocks:
-        (code, name, benefit, ops) = stock
-        rec = Unit(code, name, benefit, ops)
-        recs.append(rec)
-
+    timestamp, duration, recs = get_trend_candidate()
     return render_template('trend_candidate_page.j2', trend_candidate_recs=recs, timestamp=timestamp, duration=duration)
