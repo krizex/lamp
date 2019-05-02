@@ -1,5 +1,5 @@
 #!/bin/bash
 
-curl -m 10 https://cronitor.link/UyZpG1/run
+curl -m 60 https://cronitor.link/UyZpG1/run
 make backup-db
-curl -m 10 https://cronitor.link/UyZpG1/complete
+curl -m 60 https://cronitor.link/UyZpG1/complete
