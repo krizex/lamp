@@ -27,11 +27,17 @@ class TrendUnit(ObjectBaseUnit):
         else:
             return 1
 
+    def buy_price_of(self, hold):
+        return self.start_price * ((1 + self.ratio) ** hold)
+
+    def buy_cnt_of(self, hold):
+        return self.weight_on_ruler(hold) * self.unit
+
     def next_buy_price(self):
-        return self.start_price * ((1 + self.ratio) ** self.cur_hold)
+        return self.buy_price_of(self.cur_hold)
 
     def next_buy_cnt(self):
-        return self.weight_on_ruler(self.cur_hold) * self.unit
+        return self.buy_cnt_of(self.cur_hold)
 
     def cur_flush_price(self):
         buy_price = self.next_buy_price() / (1 + self.ratio)
@@ -54,16 +60,41 @@ class TrendUnit(ObjectBaseUnit):
     def calc_cur_hold(self):
         if self.cur_hold <= 0:
             return 0
-        else:
-            total = 0.0
-            for i in range(self.cur_hold):
-                total += self.weight_on_ruler(i)
-            return total / 10.0
+
+        total = 0.0
+        for i in range(self.cur_hold):
+            total += self.weight_on_ruler(i)
+        return total / 10.0
 
     def break_highest(self):
         highest = self.stock.get_highest_in_past_n_days(self.trend_up_days_cnt)
         return self.cur_price >= highest
 
+    def calc_approx_benefit_rate(self):
+        if self.cur_hold <= 0:
+            return 0
+
+        total_invest, total_cnt = self._calc_cur_investment()
+        return self.cur_price * total_cnt / 1.0 / total_invest - 1.0
+
+    def calc_cur_investment(self):
+        if self.cur_hold <= 0:
+            return 0
+
+        invest, _ = self._calc_cur_investment()
+        return invest
+
+    def _calc_cur_investment(self):
+        total_cnt = 0
+        total_invest = 0.0
+
+        for i in range(self.cur_hold):
+            price = self.buy_price_of(i)
+            cnt = self.buy_cnt_of(i)
+            total_cnt += cnt
+            total_invest += price * cnt
+
+        return total_invest, total_cnt
 
 
 def get_trends():

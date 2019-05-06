@@ -87,6 +87,13 @@ class TrendView(BaseView):
     def break_highest(self):
         return self.trend.break_highest()
 
+    @property
+    def approx_benefit_rate(self):
+        return self.trend.calc_approx_benefit_rate()
+
+    @property
+    def cur_invest(self):
+        return int(self.trend.calc_cur_investment())
 
 def get_trends_data():
     recs = get_trends()
