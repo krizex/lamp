@@ -39,7 +39,7 @@ stop:
 
 restart: stop run
 
-.PHONY: run-pg stop-pg run-lbt stop-lbt
+.PHONY: run-pg stop-pg run-lbt stop-lbt pre-debug stop-debug
 run-pg:
 	docker run --rm -d \
 	--name $(DB_CONTAINER_NAME) \
@@ -59,6 +59,9 @@ run-lbt:
 stop-lbt:
 	docker stop $(LBT_CONTAINER_NAME)
 
+pre-debug: run-pg run-lbt
+
+stop-debug: stop-lbt stop-pg
 
 .PHONY: push pull
 push:
@@ -73,7 +76,7 @@ backup-db:
 	docker exec $(DB_CONTAINER_NAME) pg_dump -U lamp $(DB_NAME) > data/backup/dump_$(DB_NAME)_$(cur_date).sql
 
 restore-db:
-	@if [ "x$(backup)" = x ]; then echo "No backup argument"; exit 1; fi
+	@if [ "x$(backup)" = x ]; then echo "No backup argument, please specify with backup=<sql-file>"; exit 1; fi
 	docker exec $(DB_CONTAINER_NAME) dropdb -U lamp $(DB_NAME)
 	docker exec $(DB_CONTAINER_NAME) createdb -U lamp $(DB_NAME)
 	cat $(backup) | docker exec -i $(DB_CONTAINER_NAME) psql -U lamp -d $(DB_NAME) -a
