@@ -74,7 +74,8 @@ class TrendView(BaseView):
 
     @property
     def cur_hold(self):
-        return '%d%%' % (int(self.trend.calc_cur_hold() * 100))
+        hold_rate, hold_cnt = self.trend.calc_cur_hold()
+        return '%d%%' % (int(hold_rate * 100)), hold_cnt
 
     @property
     def op_position_of_cur_price(self):

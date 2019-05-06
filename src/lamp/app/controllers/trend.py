@@ -59,12 +59,14 @@ class TrendUnit(ObjectBaseUnit):
 
     def calc_cur_hold(self):
         if self.cur_hold <= 0:
-            return 0
+            return 0, 0
 
-        total = 0.0
+        weight = 0.0
+        cnt = 0
         for i in range(self.cur_hold):
-            total += self.weight_on_ruler(i)
-        return total / 10.0
+            weight += self.weight_on_ruler(i)
+            cnt += self.buy_cnt_of(i)
+        return weight / 10.0, cnt
 
     def break_highest(self):
         highest = self.stock.get_highest_in_past_n_days(self.trend_up_days_cnt)
@@ -78,9 +80,6 @@ class TrendUnit(ObjectBaseUnit):
         return self.cur_price * total_cnt / 1.0 / total_invest - 1.0
 
     def calc_cur_investment(self):
-        if self.cur_hold <= 0:
-            return 0
-
         invest, _ = self._calc_cur_investment()
         return invest
 
