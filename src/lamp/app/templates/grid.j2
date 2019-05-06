@@ -21,7 +21,7 @@
             <TD rowspan="2"
                 {% if r.own < 1 %} class="table-active" {% endif %}>
                 <a href="https://xueqiu.com/k?q={{r.code}}#/stock">
-                    {{r.code}} <BR> {{r.name}} <BR> CNY: {{r.total_invest}}
+                    {{r.code}} <BR> {{r.name}} <BR> CNY: {{r.total_invest}} <BR> MAX-LOSS: {{'%.2f%%' % (r.max_loss * 100)}}
                 </a>
             </TD>
             <!-- SIZE -->

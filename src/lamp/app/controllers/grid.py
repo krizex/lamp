@@ -79,7 +79,10 @@ class GridUnit(ObjectBaseUnit):
         return (cur_val - ass_val) / 1.0 / ass_val
 
     def calc_total_invest(self):
-        return sum(self.ruler[:-1]) * self.unit
+        return sum(self.ruler[1:]) * self.unit
+
+    def calc_max_loss(self):
+        return 1 - self.ruler[-1] * self.size * self.unit / 1.0 / self.calc_total_invest()
 
 
 def get_grids():

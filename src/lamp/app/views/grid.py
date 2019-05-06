@@ -100,6 +100,10 @@ class GridView(BaseView):
     def total_invest(self):
         return int(self.grid.calc_total_invest())
 
+    @property
+    def max_loss(self):
+        return self.grid.calc_max_loss()
+
 
 def get_grids_data():
     recs = get_grids()
