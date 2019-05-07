@@ -22,10 +22,10 @@
                 <a href="https://xueqiu.com/k?q={{r.code}}#/stock">
                   {{r.code}} <BR> {{r.name}}
                 </a>
-                <BR> CNY: {{r.cur_invest}} <BR> ~BENEFIT: {{'%+.2f%%' % (r.approx_benefit_rate * 100)}}
                 {% if r.break_highest () %}
                   <i class="fas fa-lightbulb"></i>
                 {% endif %}
+                <BR> CNY: {{r.cur_invest}} <BR> ~BENEFIT: {{'%+.2f%%' % (r.approx_benefit_rate * 100)}}
             </TD>
             <!-- RATIO/UNIT -->
             <TD>
