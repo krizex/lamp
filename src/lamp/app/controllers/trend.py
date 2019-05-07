@@ -105,3 +105,6 @@ def get_trends():
     records = sorted(records)
 
     return records
+
+def get_records():
+    return Trend.query.all()

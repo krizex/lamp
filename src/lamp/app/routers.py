@@ -5,7 +5,7 @@ from lamp.app.views.trend import get_trends_data
 from lamp.app.views.rebound import get_rebounds_data
 from lamp.db.helpers import cli
 from lamp.log import log
-from flask import render_template
+from flask import render_template, jsonify
 from multiprocessing.pool import ThreadPool
 from lamp.app.controllers.trend_candidate import get_trend_candidate
 
@@ -44,6 +44,14 @@ def grid():
 def trend():
     trend_recs = get_trends_data()
     return render_template('trend_page.j2', trend_recs=trend_recs)
+
+
+@app.route('/trend/records/')
+def trend_records():
+    from lamp.app.controllers.trend import get_records
+    recs = get_records()
+    js = [(rec.code, rec.name) for rec in recs]
+    return jsonify(js)
 
 
 @app.route('/rebound/')
