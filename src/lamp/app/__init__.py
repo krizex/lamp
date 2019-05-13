@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from lamp.app.app import app
+from .run import create_app
+app = create_app()
+
 from lamp.model import db
 
 db.init_app(app)
 
-from lamp.app import admin
+from . import admin
 
-from lamp.app import routers
+from . import routers
 
 
 if __name__ == "__main__":
