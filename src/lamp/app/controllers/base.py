@@ -55,3 +55,7 @@ class ObjectBaseUnit(object):
         return list(range(n))
         # info = self.get_last_n_days_info(n)
         # return [x['date'] for x in info]
+
+    def get_last_n_days_vol(self, n):
+        info = self.get_last_n_days_info(n)
+        return [x['volume'] for x in info]

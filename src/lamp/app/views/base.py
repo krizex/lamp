@@ -15,3 +15,7 @@ class BaseView(AbsAttrPassThrough):
     @property
     def last_n_days_price(self):
         return self._datasource.get_last_n_days_price(22)
+
+    @property
+    def last_n_days_vol(self):
+        return self._datasource.get_last_n_days_vol(22)

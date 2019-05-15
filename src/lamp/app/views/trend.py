@@ -4,9 +4,11 @@ from flask import render_template
 
 from lamp.app.controllers.trend import get_trends
 from .base import BaseView
+from lamp.utils.util import timeit
 
 
 class TrendView(BaseView):
+    TYPE = 'trend'
     _PASS_THROUGH_ATTRS = [
         'code',
         'name',
@@ -96,6 +98,8 @@ class TrendView(BaseView):
     def cur_invest(self):
         return int(self.trend.calc_cur_investment())
 
+
+@timeit('Trend')
 def get_trends_data():
     recs = get_trends()
     recs = [TrendView(r) for r in recs]

@@ -1,4 +1,5 @@
 import datetime
+import time
 from lamp.log import log
 
 
@@ -39,3 +40,17 @@ def constructor_of(unit_cls):
             return None
 
     return builder
+
+
+def timeit(info):
+    def decorator(f):
+        def wrapper(*args, **kwargs):
+            t0 = time.time()
+            ret = f(*args, **kwargs)
+            t1 = time.time()
+            log.info('%s: takes %.2f seconds', info, t1 - t0)
+            return ret
+
+        return wrapper
+
+    return decorator

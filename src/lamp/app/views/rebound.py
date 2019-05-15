@@ -4,9 +4,11 @@ from flask import render_template
 
 from lamp.app.controllers.rebound import get_rebounds
 from .base import BaseView
+from lamp.utils.util import timeit
 
 
 class ReboundView(BaseView):
+    TYPE = 'rebound'
     _PASS_THROUGH_ATTRS = [
         'code',
         'name',
@@ -45,6 +47,7 @@ class ReboundView(BaseView):
         return self.rebound.calc_trend_position_of_cur_price()
 
 
+@timeit('Rebount')
 def get_rebounds_data():
     recs = get_rebounds()
     recs = [ReboundView(r) for r in recs]

@@ -4,9 +4,11 @@ from flask import render_template
 
 from lamp.app.controllers.grid import get_grids
 from .base import BaseView
+from lamp.utils.util import timeit
 
 
 class GridView(BaseView):
+    TYPE = 'grid'
     _PASS_THROUGH_ATTRS = [
         'code',
         'name',
@@ -105,6 +107,7 @@ class GridView(BaseView):
         return self.grid.calc_max_loss()
 
 
+@timeit('Grid')
 def get_grids_data():
     recs = get_grids()
     recs = [GridView(r) for r in recs]
