@@ -28,6 +28,7 @@
             shared: true
         };
         var legend = {
+            enabled: false,
             layout: 'vertical',
             align: 'left',
             x: 120,
@@ -60,6 +61,7 @@
         json.xAxis = xAxis;
         json.yAxis = yAxis;
         json.tooltip = tooltip;  
+        json.legend = legend;
         json.series = series;
         $('#{{r.TYPE}}_{{r.code}}').highcharts(json);  
     });
