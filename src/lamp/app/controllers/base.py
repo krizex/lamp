@@ -51,10 +51,8 @@ class ObjectBaseUnit(object):
         return [x['close'] for x in info]
 
     def get_last_n_days_date(self, n):
-        # just mock dates
-        return list(range(n))
-        # info = self.get_last_n_days_info(n)
-        # return [x['date'] for x in info]
+        info = self.get_last_n_days_info(n)
+        return [x['date'] for x in info]
 
     def get_last_n_days_vol(self, n):
         info = self.get_last_n_days_info(n)
