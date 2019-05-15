@@ -1,4 +1,4 @@
-    <div id="{{r.TYPE}}_{{r.code}}" style="width: 275px; height: 200px; margin: 0 auto"></div>
+    <div id="{{r.TYPE}}_{{r.code}}" style="width: 550px; height: 400px; margin: 0 auto"></div>
     <script language = "JavaScript">
     $(document).ready(function() {
         var title = {
