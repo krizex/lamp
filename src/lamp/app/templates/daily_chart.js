@@ -60,7 +60,6 @@
         json.xAxis = xAxis;
         json.yAxis = yAxis;
         json.tooltip = tooltip;  
-        json.legend = legend;  
         json.series = series;
         $('#{{r.TYPE}}_{{r.code}}').highcharts(json);  
     });
