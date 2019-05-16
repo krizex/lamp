@@ -5,6 +5,8 @@ from lamp.app.controllers.base import ObjectBaseUnit
 
 
 class TrendCandidate(ObjectBaseUnit):
+    TYPE = 'TrendCandidate'
+
     def __init__(self, name, code, benefit, ops):
         super(TrendCandidate, self).__init__(name, code, 0)
         self.benefit_rate = benefit
@@ -12,12 +14,15 @@ class TrendCandidate(ObjectBaseUnit):
 
     @property
     def last_n_days_date(self):
-        ret = self.get_last_n_days_date(22)
-        return ret
+        return self.get_last_n_days_date(22)
 
     @property
     def last_n_days_price(self):
         return self.get_last_n_days_price(22)
+
+    @property
+    def last_n_days_vol(self):
+        return self.get_last_n_days_vol(22)
 
 
 def get_trend_candidate():

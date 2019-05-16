@@ -31,38 +31,7 @@
             </TD>
             <!-- trend -->
             <TD> 
-                <canvas id="trend_candidate_{{r.code}}" width="200" height="100"></canvas> 
-                <script> 
-                  var ctx = document.getElementById("trend_candidate_{{r.code}}"); 
-                  var myChart = new Chart(ctx, { 
-                      type: 'line', 
-                      data: { 
-                          labels: {{r.last_n_days_date | safe}}, 
-                          datasets: [{ 
-                              data: {{r.last_n_days_price | safe}}, 
-                          }] 
-                      }, 
-                      options: { 
-                          responsive: false, 
-                          legend: { 
-                              display: false 
-                          }, 
-                          scales: { 
-                              xAxes: [{ 
-                                  ticks: { 
-                                      display: false //this will remove only the label 
-                                  } 
-                              }], 
-                              yAxes: [{ 
-                                  ticks: { 
-                                      display: false //this will remove only the label 
-                                  } 
-                              }] 
-                          } 
-                      } 
-                  }); 
-                </script> 
-                <BR> 
+                {% include "daily_chart.js" %}
             </TD> 
         </TR>
         {% endfor %}
