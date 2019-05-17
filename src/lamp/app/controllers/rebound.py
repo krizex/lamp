@@ -33,3 +33,6 @@ def get_rebounds():
     records = sorted(records)
 
     return records
+
+def get_records():
+    return Rebound.query.all()

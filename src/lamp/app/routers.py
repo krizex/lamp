@@ -60,6 +60,13 @@ def rebound():
     return render_template('rebound_page.j2', rebound_recs=rebound_recs)
 
 
+@app.route('/rebound/records/')
+def rebound_records():
+    from lamp.app.controllers.rebound import get_records
+    recs = get_records()
+    js = [(rec.code, rec.name) for rec in recs]
+    return jsonify(js)
+
 
 @app.route('/trend_candidate/')
 def trend_candidate():
