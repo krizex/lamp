@@ -31,9 +31,10 @@ def wave():
     recs_map = {name: result for name, result in [ret.get() for ret in async_results]}
 
     timestamp, duration, recs = get_trend_candidate()
-    underestimate_recs = get_underestimate()
+    # underestimate_recs = get_underestimate()
 
-    return render_template('wave_page.j2', **recs_map, timestamp=timestamp, duration=duration, trend_candidate_recs=recs, underestimate_recs=underestimate_recs)
+    # return render_template('wave_page.j2', **recs_map, timestamp=timestamp, duration=duration, trend_candidate_recs=recs, underestimate_recs=underestimate_recs)
+    return render_template('wave_page.j2', **recs_map, timestamp=timestamp, duration=duration, trend_candidate_recs=recs)
 
 
 @app.route('/grid/')
