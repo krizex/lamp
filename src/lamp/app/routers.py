@@ -8,6 +8,7 @@ from lamp.log import log
 from flask import render_template, jsonify
 from multiprocessing.pool import ThreadPool
 from lamp.app.controllers.trend_candidate import get_trend_candidate
+from lamp.app.controllers.underestimate import get_underestimate
 
 
 
@@ -30,8 +31,9 @@ def wave():
     recs_map = {name: result for name, result in [ret.get() for ret in async_results]}
 
     timestamp, duration, recs = get_trend_candidate()
+    underestimate_recs = get_underestimate()
 
-    return render_template('wave_page.j2', **recs_map, timestamp=timestamp, duration=duration, trend_candidate_recs=recs)
+    return render_template('wave_page.j2', **recs_map, timestamp=timestamp, duration=duration, trend_candidate_recs=recs, underestimate_recs=underestimate_recs)
 
 
 @app.route('/grid/')
