@@ -5,7 +5,7 @@ class Rebound(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     code = db.Column(db.String(10), unique=True, nullable=False)
     name = db.Column(db.String(32))
-    days = db.Column(db.Integer)
+    days = db.Column(db.Integer, nullable=False)
     ratio = db.Column(db.Float, nullable=False)
     note = db.Column(db.Text)
 
