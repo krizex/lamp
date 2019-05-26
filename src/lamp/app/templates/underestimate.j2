@@ -1,0 +1,30 @@
+<center><h3><span class="badge badge-info center-block">UNDERESTIMATE</span></h3></center>
+<table data-toggle="table" class="table">
+    <thead>
+        <TR>
+            <TH>CODE/NAME</TH>
+            <TH>CUR-POS</TH>
+            <TH>TREND</TH> 
+        </TR>
+    </thead>
+    <tbody>
+        {% for r in underestimate_recs%}
+          <TR>
+            <!-- CODE -->
+            <TD>
+                <a href="https://xueqiu.com/k?q={{r.code}}#/stock">
+                  {{r.code}} <BR> {{r.name}}
+                </a>
+            </TD>
+            <!-- CUR-POS -->
+            <TD>
+                {{'%.2f%%' % (r.pos * 100)}}
+            </TD>
+            <!-- trend -->
+            <TD> 
+                {% include "daily_chart.js" %}
+            </TD> 
+        </TR>
+        {% endfor %}
+    </tbody>
+</table>
