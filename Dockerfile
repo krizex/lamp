@@ -11,7 +11,7 @@ RUN wget http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz && ta
 FROM ubuntu:18.04
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
-ARG persist
+# ARG persist
 
 RUN apt update
 # install Python3
@@ -27,12 +27,16 @@ RUN apt install -y python-dev
 COPY --from=builder /usr-tmp /usr
 ENV LD_LIBRARY_PATH /usr/lib
 
+
+RUN apt install -y node-less vim
+
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 RUN rm -f requirements.txt
 
+
 COPY src/ /app/
-COPY ${persist} /persist/
+# COPY ${persist} /persist/
 WORKDIR /app
 EXPOSE 8000
 

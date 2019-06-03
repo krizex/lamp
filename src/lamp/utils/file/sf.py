@@ -2,6 +2,7 @@
 import os
 import fcntl
 import contextlib
+from lamp.log import log
 
 
 class SharedFile(object):
@@ -16,6 +17,7 @@ class SharedFile(object):
             try:
                 fcntl.flock(f, fcntl.LOCK_EX|fcntl.LOCK_NB)
             except IOError as _ :
+                log.info('Another process is in progress')
                 return
 
             # now get the lock

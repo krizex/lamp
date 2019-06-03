@@ -9,10 +9,7 @@ DB_NAME := lamp
 
 .PHONY: build
 build:
-	mkdir -p _build/datatmp
-	cp -r data/* _build/datatmp
-	docker build -t $(IMAGE_LABEL) --build-arg persist=_build/datatmp .
-	rm -rf _build/datatmp
+	docker build -t $(IMAGE_LABEL) .
 
 .PHONY: debug
 debug:
@@ -21,7 +18,6 @@ debug:
 	--link $(LBT_CONTAINER_NAME) \
 	-p $(HOST_DEBUG_PORT):$(CONTAINER_PORT) \
 	--env-file database.conf \
-	-v $(CUR_DIR)/data:/persist:rw \
 	-v $(CUR_DIR)/src:/app \
 	-v /etc/localtime:/etc/localtime:ro \
 	$(IMAGE_LABEL):latest /bin/bash
