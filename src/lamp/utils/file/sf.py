@@ -11,9 +11,6 @@ class SharedFile(object):
         self.name = name
 
     def exclusive_create(self, data_f):
-        if self.exist():
-            return
-
         with ILock(self.name + '.lock'):
             if self.exist():
                 return
