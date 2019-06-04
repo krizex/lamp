@@ -2,6 +2,7 @@
 import os
 import fcntl
 import contextlib
+from ilock import ILock
 from lamp.log import log
 
 
@@ -13,16 +14,13 @@ class SharedFile(object):
         if self.exist():
             return
 
-        with open(self.name, 'a') as f:
-            try:
-                fcntl.flock(f, fcntl.LOCK_EX|fcntl.LOCK_NB)
-            except IOError as _ :
-                log.info('Another process is in progress')
+        with ILock(self.name + '.lock'):
+            if self.exist():
                 return
 
-            # now get the lock
-            data = data_f()
-            f.write(data)
+            with open(self.name, 'w') as f:
+                data = data_f()
+                f.write(data)
 
     def exist(self):
         return os.path.isfile(self.name)
@@ -30,7 +28,6 @@ class SharedFile(object):
     @contextlib.contextmanager
     def open_read(self):
         with open(self.name, 'r') as f:
-            fcntl.flock(f, fcntl.LOCK_SH)
             yield f
 
 

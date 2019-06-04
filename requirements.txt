@@ -10,3 +10,4 @@ bs4==0.0.1
 psycopg2-binary==2.7.7
 numpy==1.16.2
 TA-Lib==0.4.17
+ilock
