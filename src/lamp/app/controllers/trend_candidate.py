@@ -2,6 +2,7 @@ import requests
 from collections import namedtuple
 from lamp.utils.util import parallel_apply, constructor_of
 from lamp.app.controllers.base import ObjectBaseUnit
+from lamp.utils.util import timeit
 
 
 class TrendCandidate(ObjectBaseUnit):
@@ -25,6 +26,7 @@ class TrendCandidate(ObjectBaseUnit):
         return self.get_last_n_days_vol(22)
 
 
+@timeit('trend_candidate')
 def get_trend_candidate():
     resp = requests.get('http://lamp-lbt:8000')
     js = resp.json()

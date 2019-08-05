@@ -47,7 +47,7 @@ class ReboundView(BaseView):
         return self.rebound.calc_trend_position_of_cur_price()
 
 
-@timeit('Rebount')
+@timeit('Rebound')
 def get_rebounds_data():
     recs = get_rebounds()
     recs = [ReboundView(r) for r in recs]
