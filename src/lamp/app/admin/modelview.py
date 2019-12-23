@@ -29,3 +29,7 @@ class AuthModelView(ModelView):
     column_formatters = {
         'name': get_name
     }
+
+
+class AuthModelViewSortCode(AuthModelView):
+    column_default_sort = 'code'
