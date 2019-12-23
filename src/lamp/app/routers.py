@@ -36,7 +36,7 @@ def wave():
     # underestimate_recs = get_underestimate()
 
     # return render_template('wave_page.j2', **recs_map, timestamp=timestamp, duration=duration, trend_candidate_recs=recs, underestimate_recs=underestimate_recs)
-    return render_template('wave_page.j2', **recs_map, timestamp=timestamp, duration=duration, trend_candidate_recs=recs)
+    return render_template('wave_page.j2', timestamp=timestamp, duration=duration, trend_candidate_recs=recs, **recs_map)
 
 
 @app.route('/grid/')
