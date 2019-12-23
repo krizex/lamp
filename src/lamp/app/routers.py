@@ -30,7 +30,9 @@ def wave():
     async_results = [pool.apply_async(apply_f, (f, name)) for name, f in funcs.items()]
     recs_map = {name: result for name, result in [ret.get() for ret in async_results]}
 
-    timestamp, duration, recs = get_trend_candidate()
+    # timestamp, duration, recs = get_trend_candidate()
+    # XXX: do not fetch trend candidate
+    timestamp, duration, recs = ('NA', 0, [])
     # underestimate_recs = get_underestimate()
 
     # return render_template('wave_page.j2', **recs_map, timestamp=timestamp, duration=duration, trend_candidate_recs=recs, underestimate_recs=underestimate_recs)
