@@ -33,7 +33,7 @@ attach:
 stop:
 	docker-compose down
 
-restart: stop run
+restart: | stop run
 
 .PHONY: run-pg stop-pg run-lbt stop-lbt pre-debug stop-debug
 run-pg:
