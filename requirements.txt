@@ -11,3 +11,4 @@ psycopg2-binary==2.7.7
 numpy==1.16.2
 TA-Lib==0.4.17
 ilock
+pandas==0.24.2
