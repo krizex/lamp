@@ -16,7 +16,7 @@ def get_name(view, context, model, name):
 
 class AuthModelView(ModelView):
     # can_delete = False
-    column_default_sort = 'code'
+    column_default_sort = ('own', True)
     def is_accessible(self):
         if not basic_auth.authenticate():
             raise AuthException('Not authenticated.')
