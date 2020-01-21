@@ -3,11 +3,16 @@ from lamp.stocks.stock import Stock
 
 
 class ObjectBaseUnit(object):
-    def __init__(self, code, name, own):
+    def __init__(self, code, name, own, note):
         self.code = code
         self.name = name
         self.own = own
+        self._note = note
         self.fill_info()
+
+    @property
+    def note(self):
+        return self._note.replace('\n', '<br>')
 
     def fill_info(self):
         log.debug('Fetching %s', self.code)

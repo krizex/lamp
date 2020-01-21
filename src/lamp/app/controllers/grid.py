@@ -9,10 +9,9 @@ import traceback
 
 class GridUnit(ObjectBaseUnit):
     def __init__(self, grid):
-        super(GridUnit, self).__init__(grid.code, grid.name, grid.own)
+        super(GridUnit, self).__init__(grid.code, grid.name, grid.own, grid.note)
         self.size = grid.size
         self.unit = grid.unit
-        self.note = grid.note
         self.own = grid.own
         self.ruler, self.width = calc_ruler(grid.high, grid.low, grid.size)
         self.is_fund = False

@@ -7,10 +7,9 @@ import traceback
 
 class ReboundUnit(ObjectBaseUnit):
     def __init__(self, rebound):
-        super(ReboundUnit, self).__init__(rebound.code, rebound.name, 0)
+        super(ReboundUnit, self).__init__(rebound.code, rebound.name, 0, rebound.note)
         self.days = rebound.days
         self.ratio = rebound.ratio
-        self.note = rebound.note
 
     def lowest_price(self):
         return self.trend_low_ndays(self.days)

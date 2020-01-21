@@ -8,9 +8,8 @@ import traceback
 
 class TrendUnit(ObjectBaseUnit):
     def __init__(self, trend):
-        super(TrendUnit, self).__init__(trend.code, trend.name, trend.own)
+        super(TrendUnit, self).__init__(trend.code, trend.name, trend.own, trend.note)
         self.unit = trend.unit
-        self.note = trend.note
         self.ratio = trend.ratio
         self.start_price = trend.start_price
         self.cur_hold = trend.cur_hold
