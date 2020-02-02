@@ -59,6 +59,8 @@
                 <p class={% if r.cur_p_change >= 0.0 %} "text-success" {% else %} "text-danger" {% endif %}>
                     {{'%+.2f%%' % (r.cur_p_change * 100)}}
                 </p>
+                <BR>
+                {{r.macd_label}}
             </TD>
             {# STOP-BENEFIT #}
             <TD>

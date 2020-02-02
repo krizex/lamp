@@ -98,6 +98,16 @@ class TrendView(BaseView):
     def cur_invest(self):
         return int(self.trend.calc_cur_investment())
 
+    @property
+    def macd_label(self):
+        op, label = self.trend.calc_macd_label()
+        if op == 0:
+            return ''
+        elif op > 0:
+            return '<span class="badge badge-success">%s</span>' % label
+        else:
+            return '<span class="badge badge-danger">%s</span>' % label
+
 
 @timeit('Trend')
 def get_trends_data():

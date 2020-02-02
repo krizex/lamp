@@ -28,12 +28,22 @@ class Stock(object):
             df = ts.get_k_data(self.code, retry_count=10)
             close = np.array([float(x) for x in df['close']])
             df['MA40'] = talib.SMA(close, timeperiod=40)
+            self.add_macd(df)
             return df
         except Exception as e:
             log.exception('ts.get_k_data for %s failed', self.code)
             # cons = ts.get_apis()
             # return ts.bar(self.code, conn=cons, retry_count=10)
             raise
+
+    def add_macd(self, df):
+        fastperiod = 12   # 短期EMA平滑天数
+        slowperiod = 26    # 长期EMA平滑天数
+        signalperiod = 9    # DEA线平滑天数
+        close = np.array([float(x) for x in df['close']])
+        diff, dea, macd = talib.MACD(close, fastperiod=fastperiod, slowperiod=slowperiod, signalperiod=signalperiod)
+        df['DIFF'] = diff
+        df['MACD'] = macd
 
     def get_last_n_day_info(self, n):
         day = self.df.shape[0] - 1 - n
@@ -46,6 +56,9 @@ class Stock(object):
 
     def get_last_day_close(self):
         return self.get_last_n_day_info(0)['close']
+
+    def get_last_day_info(self):
+        return self.get_last_n_day_info(0)
 
     def get_last_day_date(self):
         return self.get_last_n_day_info(0)['date']
@@ -61,6 +74,17 @@ class Stock(object):
 
     def get_highest_in_past_n_days(self, n):
         return self.df[-n:-1]['high'].max()
+
+    def get_highest_macd_row_in_past_n_days(self, n):
+        df = self.df[-n:-1]
+        idx = df['MACD'].idxmax()
+        return df.iloc[idx]
+
+    def get_lowest_macd_row_in_past_n_days(self, n):
+        df = self.df[-n:-1]
+        idx = df['MACD'].idxmin()
+        return df.iloc[idx]
+
 
 
 

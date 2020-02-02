@@ -2,6 +2,7 @@ from lamp.model import Trend
 from lamp.log import log
 from lamp.utils.util import calc_ruler, parallel_apply, constructor_of
 from lamp.app.controllers.base import ObjectBaseUnit
+from lamp.app import conf
 from abc import ABCMeta, abstractproperty, abstractmethod
 import traceback
 
@@ -13,8 +14,8 @@ class TrendUnit(ObjectBaseUnit):
         self.ratio = trend.ratio
         self.start_price = trend.start_price
         self.cur_hold = trend.cur_hold
-        self.trend_up_days_cnt = 22
-        self.trend_down_days_cnt = 11
+        self.trend_up_days_cnt = conf.TREND_HIGH_DAYS
+        self.trend_down_days_cnt = conf.TREND_LOW_DAYS
         self.stop_loss_rate = 0.1
         # down below MA40
         self.stop_benefit_down_rate = 0.03
@@ -93,6 +94,21 @@ class TrendUnit(ObjectBaseUnit):
             total_invest += price * cnt
 
         return total_invest, total_cnt
+
+    def calc_macd_label(self):
+        lastday = self.stock.get_last_day_info()
+        if lastday['MACD'] >= 0.0:
+            row = self.stock.get_highest_macd_row_in_past_n_days(conf.MACD_CHECK_DAYS)
+            if lastday['close'] >= row['close'] and lastday['MACD'] < row['MACD']:
+                # top deviation
+                return -1, 'SELL'
+        else:
+            row = self.stock.get_lowest_macd_row_in_past_n_days(conf.MACD_CHECK_DAYS)
+            if lastday['MACD'] > row['MACD'] and lastday['close'] <= row['close']:
+                # bottom deviation
+                return 1, 'BUY'
+
+        return 0, None
 
 
 def get_trends():

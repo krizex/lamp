@@ -3,6 +3,7 @@ from lamp.model import Grid
 from lamp.log import log
 from lamp.utils.util import calc_ruler, parallel_apply, constructor_of
 from lamp.app.controllers.base import ObjectBaseUnit
+from lamp.app import conf
 from abc import ABCMeta, abstractproperty, abstractmethod
 import traceback
 
@@ -19,8 +20,8 @@ class GridUnit(ObjectBaseUnit):
         # self.is_fund = self.stock.is_fund
         if self.is_fund:
             self.fill_fund_info()
-        self.trend_up_days_cnt = 22
-        self.trend_down_days_cnt = 11
+        self.trend_up_days_cnt = conf.TREND_HIGH_DAYS
+        self.trend_down_days_cnt = conf.TREND_LOW_DAYS
 
     def fill_fund_info(self):
         self.fund = Fund(self.code)
