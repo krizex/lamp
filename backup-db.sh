@@ -1,4 +1,7 @@
 #!/bin/bash
+set -e
+
+PATH="/usr/bin:/usr/sbin"
 
 curl -m 60 https://cronitor.link/UyZpG1/run
 make backup-db
