@@ -78,12 +78,12 @@ class Stock(object):
     def get_highest_macd_row_in_past_n_days(self, n):
         df = self.df[-n:-1]
         idx = df['MACD'].idxmax()
-        return df.iloc[idx]
+        return df.loc[idx]
 
     def get_lowest_macd_row_in_past_n_days(self, n):
         df = self.df[-n:-1]
         idx = df['MACD'].idxmin()
-        return df.iloc[idx]
+        return df.loc[idx]
 
 
 
