@@ -9,7 +9,7 @@ DB_NAME := lamp
 
 .PHONY: build
 build:
-	docker build --pull -t $(IMAGE_LABEL) .
+	docker build -t $(IMAGE_LABEL) .
 
 .PHONY: debug
 debug:
