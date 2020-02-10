@@ -101,12 +101,12 @@ class TrendUnit(ObjectBaseUnit):
             row = self.stock.get_highest_macd_row_in_past_n_days(conf.MACD_CHECK_DAYS)
             if lastday['close'] >= row['close'] and lastday['MACD'] < row['MACD']:
                 # top deviation
-                return -1, 'SELL' + '<br>' + lastday['date']
+                return -1, 'SELL' + '<br>' + row['date']
         else:
             row = self.stock.get_lowest_macd_row_in_past_n_days(conf.MACD_CHECK_DAYS)
             if lastday['MACD'] > row['MACD'] and lastday['close'] <= row['close']:
                 # bottom deviation
-                return 1, 'BUY' + '<br>' + lastday['date']
+                return 1, 'BUY' + '<br>' + row['date']
 
         return 0, None
 
