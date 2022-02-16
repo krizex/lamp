@@ -8,7 +8,7 @@ SQLAlchemy==1.2.12
 tushare==1.2.21
 bs4==0.0.1
 psycopg2-binary==2.7.7
-numpy==1.16.2
+numpy==1.21.0
 TA-Lib==0.4.17
 ilock
 pandas==0.24.2
