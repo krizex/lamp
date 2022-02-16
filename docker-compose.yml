@@ -10,6 +10,7 @@ services:
       - ${PWD}/src/lamp/app/static:/var/www/static
     networks:
       - frontend
+    restart: always
 
   lamp:
     image: krizex/lamp:latest
@@ -21,6 +22,7 @@ services:
     networks:
       - frontend
       - backend
+    restart: always
 
   pg:
     image: postgres:10-alpine
@@ -30,6 +32,7 @@ services:
     env_file: database.conf
     networks:
       - backend
+    restart: always
 
   lamp-lbt:
     image: krizex/lbt:latest
@@ -38,6 +41,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
     networks:
       - backend
+    restart: always
 
 
 networks:
